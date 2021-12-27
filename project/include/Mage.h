@@ -4,7 +4,7 @@
 #include "MoveAble.h"
 
 
-class King : public MoveAble
+class Mage : public MoveAble
 {
 public:
 	using MoveAble::MoveAble;

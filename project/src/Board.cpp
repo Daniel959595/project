@@ -1,11 +1,14 @@
 #include "Board.h"
 
+const int size = 50;
 
 //Board::Board()
 //{
 //
 //}
 
+//read the data from the file into an array and from that array
+//into the right vector.
 void Board::readData(std::ifstream& in)
 {
 	std::vector<std::string> matrix;
@@ -18,37 +21,41 @@ void Board::readData(std::ifstream& in)
 		getline(in, str);
 	}
 
-    int moveIndex;
-	for (int i = 0; i < matrix.size(); ++i)
-		for (int j = 0; j < matrix[i].size(); ++j)
+	for (int row = 0; row < matrix.size(); ++row)
+		for (int col = 0; col < matrix[row].size(); ++col)
 		{
-            sf::Vector2f location(sf::Vector2f(0.0f, 10.0f));
-            if (typeid(*getType(matrix[i][j])) == typeid(MoveAble))
-            {
-                //auto newObj = ;
-               // auto newObj = ;
-                //m_movebles.push_back(std::make_unique<King>(Figure::m_king, { 0, 0 }));
-                m_moveAbles.push_back(std::make_unique <King>> (m_figures.getFigure(Figure(0)), { 0,0 }));
-            }
+            if (matrix[row][col] == ' ')
+                continue;
+            loadVectors(matrix[row][col], row, col);
 		}
 }
 
-GameObj* Board::getType(char letter)
+void Board::loadVectors(char letter, int row, int col)
 {
+    sf::Vector2f location(col * size, row * size);
+
     switch (letter)
     {
     case 'K':
-    case 'k':   
-    case 'W':
-    case 'w':
-    case 'M':
-    case 'm':
-    case 'T':
-    case 't':
-        MoveAble * ptr;
-        return ptr;
+    case 'k': 
+        m_moveAbles.push_back(std::make_unique <King>(m_figures.getFigure(Figure(0)), location));
         break;
 
+    case 'W':
+    case 'w':
+        m_moveAbles.push_back(std::make_unique <Warrior>(m_figures.getFigure(Figure(1)), location));
+        break;
+
+    case 'M':
+    case 'm':
+        m_moveAbles.push_back(std::make_unique <Mage>(m_figures.getFigure(Figure(2)), location));
+        break;
+
+    case 'T':
+    case 't':
+        m_moveAbles.push_back(std::make_unique <Thief>(m_figures.getFigure(Figure(3)), location));
+        break;
+        
   /*  case '!':
     case '=':        
     case '*':       
@@ -59,8 +66,7 @@ GameObj* Board::getType(char letter)
     case '@':*/
         
     default:
-        MoveAble* ptr;
-        return ptr;
+        m_moveAbles.push_back(std::make_unique <King>(m_figures.getFigure(Figure(0)), location));
         break;
 
     }

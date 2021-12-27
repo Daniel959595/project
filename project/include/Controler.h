@@ -9,6 +9,7 @@ public:
     Controler();
 	void menu();
 	void loadLevels();
+
 private:
 	sf::RenderWindow m_window;
 	Board m_board;
