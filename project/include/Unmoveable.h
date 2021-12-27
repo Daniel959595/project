@@ -7,12 +7,12 @@
 #include "GameObj.h"
 
 
-class Moveable : public GameObj
+class Unmoveable : public GameObj
 {
 public:
 	using GameObj::GameObj;
 
-	virtual ~Moveable() = 0 {}
+	virtual ~Unmoveable() = 0 {}
 	//virtual void move();
 	//virtual void handleCollis(const GameObj* object);
 };

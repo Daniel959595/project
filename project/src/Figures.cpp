@@ -9,7 +9,7 @@ Figures::Figures()
     m_ork.loadFromFile("ork.png");
     m_wall.loadFromFile("wall.png");
     m_fire.loadFromFile("fire.png");
-    m_gate.loadFromFile("door.png");
+    m_gate.loadFromFile("gate.png");
     m_key.loadFromFile("key.png");
     m_teleporter.loadFromFile("teleporter.png");
     m_throne.loadFromFile("throne.png");

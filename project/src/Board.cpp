@@ -39,46 +39,69 @@ void Board::loadVectors(char letter, float row, float col)
     {
     case 'K':
     case 'k': 
-        m_moveAbles.push_back(std::make_unique <King>(m_figures.getFigure(Figure(0)), location));
+        m_moveables.push_back(std::make_unique <King>(m_figures.getFigure(Figure(0)), location));
         break;
 
     case 'W':
     case 'w':
-        m_moveAbles.push_back(std::make_unique <Warrior>(m_figures.getFigure(Figure(1)), location));
+        m_moveables.push_back(std::make_unique <Warrior>(m_figures.getFigure(Figure(1)), location));
         break;
 
     case 'M':
     case 'm':
-        m_moveAbles.push_back(std::make_unique <Mage>(m_figures.getFigure(Figure(2)), location));
+        m_moveables.push_back(std::make_unique <Mage>(m_figures.getFigure(Figure(2)), location));
         break;
 
     case 'T':
     case 't':
-        m_moveAbles.push_back(std::make_unique <Thief>(m_figures.getFigure(Figure(3)), location));
+        m_moveables.push_back(std::make_unique <Thief>(m_figures.getFigure(Figure(3)), location));
         break;
         
-  /*  case '!':
+    case '!':
+        m_unmoveables.push_back(std::make_unique <Ork>(m_figures.getFigure(Figure(4)), location));
+        break;
+
     case '=':        
+        m_unmoveables.push_back(std::make_unique <Wall>(m_figures.getFigure(Figure(5)), location));
+        break;
+
     case '*':       
+        m_unmoveables.push_back(std::make_unique <Fire>(m_figures.getFigure(Figure(6)), location));
+        break;
+
     case '#':       
+        m_unmoveables.push_back(std::make_unique <Gate>(m_figures.getFigure(Figure(7)), location));
+        break;
+
     case 'F':      
+        m_unmoveables.push_back(std::make_unique <Key>(m_figures.getFigure(Figure(8)), location));
+        break;
+
     case 'X':
-    case 'x':        
-    case '@':*/
+    case 'x':
+        m_unmoveables.push_back(std::make_unique <Teleporter>(m_figures.getFigure(Figure(9)), location));
+        break;
+
+    case '@':
+        m_unmoveables.push_back(std::make_unique <Throne>(m_figures.getFigure(Figure(10)), location));
+        break;
         
     default:
-        m_moveAbles.push_back(std::make_unique <King>(m_figures.getFigure(Figure(0)), location));
-        break;
+        return;
 
     }
 }
 
 void Board::draw(sf::RenderWindow& window)
 {
-    for (auto &index : m_moveAbles)
+    for (auto &index : m_moveables)
     {
         index->draw(window);
+    }
 
+    for (auto& index : m_unmoveables)
+    {
+        index->draw(window);
     }
 }
 

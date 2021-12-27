@@ -7,11 +7,19 @@
 #include <typeinfo>
 
 #include "Figures.h"
-#include "MoveAble.h"
+#include "Moveable.h"
+#include "Unmoveable.h"
 #include "King.h"
 #include "Warrior.h"
 #include "Mage.h"
 #include "Thief.h"
+#include "Key.h"
+#include "Fire.h"
+#include "Teleporter.h"
+#include "Wall.h"
+#include "Gate.h"
+#include "Ork.h"
+#include "Throne.h"
 
 
 
@@ -28,8 +36,8 @@ public:
 private:
     Figures m_figures;
 
-    std::vector <std::unique_ptr <MoveAble> > m_moveAbles;
-    //std::vector <std::unique_ptr <UnMoveAble> > m_unmoveAbles;
+    std::vector <std::unique_ptr <Moveable> > m_moveables;
+    std::vector <std::unique_ptr <Unmoveable> > m_unmoveables;
     //std::vector <std::unique_ptr <Gift> > m_gifts;
 
 };

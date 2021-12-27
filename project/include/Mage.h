@@ -1,13 +1,13 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "MoveAble.h"
+#include "Moveable.h"
 
 
-class Mage : public MoveAble
+class Mage : public Moveable
 {
 public:
-	using MoveAble::MoveAble;
+	using Moveable::Moveable;
 	//King(const sf::Texture& texture, const sf::Vector2f& position);
 
 };

@@ -8,6 +8,6 @@ configure_file ("teleporter.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("ork.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("throne.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("wall.png" ${CMAKE_BINARY_DIR} COPYONLY)
-configure_file ("door.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("gate.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("key.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
