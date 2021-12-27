@@ -23,7 +23,7 @@ public:
     //Board();
     void draw(sf::RenderWindow& window);
     void readData(std::ifstream& in);
-    void loadVectors(char letter, int row, int col);
+    void loadVectors(char letter, float row, float col);
 
 private:
     Figures m_figures;

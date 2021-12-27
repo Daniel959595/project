@@ -1,6 +1,6 @@
 #include "Board.h"
-
-const int size = 50;
+#include <iostream>
+const float size = 50;
 
 //Board::Board()
 //{
@@ -26,12 +26,13 @@ void Board::readData(std::ifstream& in)
 		{
             if (matrix[row][col] == ' ')
                 continue;
-            loadVectors(matrix[row][col], row, col);
+            loadVectors(matrix[row][col], float(row), float(col));
 		}
 }
 
-void Board::loadVectors(char letter, int row, int col)
+void Board::loadVectors(char letter, float row, float col)
 {
+
     sf::Vector2f location(col * size, row * size);
 
     switch (letter)
@@ -71,5 +72,15 @@ void Board::loadVectors(char letter, int row, int col)
 
     }
 }
+
+void Board::draw(sf::RenderWindow& window)
+{
+    for (auto &index : m_moveAbles)
+    {
+        index->draw(window);
+
+    }
+}
+
 
 

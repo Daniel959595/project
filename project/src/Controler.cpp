@@ -28,7 +28,7 @@ void Controler::loadLevels()
 		{
 			//menu();  ??
 			std::cout << "end!\n";
-			exit;
+			exit (0);
 		}
 		m_board.readData(in);
 		run();
@@ -38,5 +38,31 @@ void Controler::loadLevels()
 }
 void Controler:: run()
 {
+	while (m_window.isOpen())
+	{
+		m_window.clear();
+		m_board.draw(m_window);
+		m_window.display();
 
+		// Handle events
+		//sf::Event event;
+		for (auto event = sf::Event{}; m_window.pollEvent(event);)
+		{
+			// Window closed or escape key pressed: exit
+			switch (event.type)
+			{
+			case sf::Event::Closed:
+				m_window.close();
+				break;
+
+			case sf::Event::KeyPressed:
+				if (event.key.code == sf::Keyboard::Escape)
+				{
+					m_window.close();
+					break;
+				}
+
+			}
+		}
+	}
 }
