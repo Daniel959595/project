@@ -32,9 +32,12 @@ public:
     void draw(sf::RenderWindow& window);
     void readData(std::ifstream& in);
     void loadVectors(char letter, float row, float col);
+    void movePlayer(sf::Time& deltaTime);
+    void setPlayer();
 
 private:
     Figures m_figures;
+    int m_playerIndex = 0;
 
     std::vector <std::unique_ptr <Moveable> > m_moveables;
     std::vector <std::unique_ptr <Unmoveable> > m_unmoveables;

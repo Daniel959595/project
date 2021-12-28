@@ -105,5 +105,17 @@ void Board::draw(sf::RenderWindow& window)
     }
 }
 
+void Board::movePlayer(sf::Time& deltaTime)
+{
+    m_moveables[m_playerIndex]->move(deltaTime);
+}
+
+void Board::setPlayer()
+{
+    static int i = 0;
+    m_playerIndex = (i++)%4;
+    if (i > 3)
+        i = 0;
+}
 
 

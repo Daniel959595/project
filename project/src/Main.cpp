@@ -1,9 +1,9 @@
-#include "Controler.h"
+#include "Controller.h"
 
 
 int main()
 {
-	Controler my_game;
+	Controller my_game;
 	my_game.menu();
 
 }

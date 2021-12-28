@@ -11,8 +11,11 @@ class Moveable : public GameObj
 {
 public:
 	using GameObj::GameObj;
-
 	virtual ~Moveable() = 0 {}
-	//virtual void move();
+
+	virtual void move(sf::Time& deltaTime);
 	//virtual void handleCollis(const GameObj* object);
+
+private:
+	float m_speed = 150.0f;
 };
