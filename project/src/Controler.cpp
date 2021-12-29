@@ -12,6 +12,7 @@ Controller::Controller()
 
 void Controller::menu()
 {
+	//help()
 	loadLevels();
 }
 
@@ -20,8 +21,8 @@ void Controller::loadLevels()
 	int index = 1;
 	while (true)
 	{
-		std::string fileName = { "level_.txt" };
-		fileName.insert(fileName.begin() + 6, char(48 + index));
+		std::string fileName = { "level_" + std::to_string(index) + ".txt" };
+		//fileName.insert(fileName.begin() + 6, char(48 + index));
 		std::ifstream in;
 		in.open(fileName);
 		if (!in.is_open())
@@ -43,6 +44,7 @@ void Controller:: run()
 		draw();
 		handleEvents();
 		updateGameObjects();
+		m_board.handleCollisions();
 	}
 }
 
@@ -80,6 +82,7 @@ void Controller::updateGameObjects()
 {
 	auto deltaTime = m_clock.restart();
 	m_board.movePlayer(deltaTime);
+	//m_board.moveDwarfs(deltaTime);
 }
 
 

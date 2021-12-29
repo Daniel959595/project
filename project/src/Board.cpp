@@ -118,4 +118,38 @@ void Board::setPlayer()
         i = 0;
 }
 
+void Board::handleCollisions()
+{
+    for (auto& movable : m_moveables)
+    {
+        checkCollision(*movable);
+    }
+
+    /*for (auto& unmovable : m_unmoveables)
+    {
+        if (gameObject.checkCollision(*unmovable))
+        {
+            gameObject.handleCollision(*unmovable);
+        }
+    }*/
+}
+
+void Board::checkCollision(Moveable& obj)
+{
+    for (auto& unmovable : m_unmoveables)
+    {
+        if (obj.get_sprite().getGlobalBounds().intersects((*unmovable).get_sprite().getGlobalBounds()))
+        {
+            obj.handleCollision(*unmovable);
+        }
+    }
+
+    /*for (auto& unmovable : m_unmoveables)
+    {
+        if (obj.get_sprite().getGlobalBounds().intersects((*unmovable).get_sprite().getGlobalBounds()))
+        {
+            gameObject.handleCollision(*unmovable);
+        }
+    }*/
+}
 

@@ -9,6 +9,7 @@ class King : public Moveable
 public:
 	using Moveable::Moveable;
 
+	virtual void handleCollision(Wall& gameObj) override;
 };
 
 

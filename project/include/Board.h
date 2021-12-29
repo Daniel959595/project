@@ -23,8 +23,6 @@
 
 
 
-
-
 class Board
 {
 public:
@@ -34,6 +32,8 @@ public:
     void loadVectors(char letter, float row, float col);
     void movePlayer(sf::Time& deltaTime);
     void setPlayer();
+    void handleCollisions();
+    void checkCollision(Moveable& obj);
 
 private:
     Figures m_figures;
