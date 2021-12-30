@@ -122,7 +122,7 @@ void Board::handleCollisions()
 {
     for (auto& movable : m_moveables)
     {
-        checkCollision(*movable);
+        checkCollisions(*movable);
     }
 
     /*for (auto& unmovable : m_unmoveables)
@@ -134,12 +134,13 @@ void Board::handleCollisions()
     }*/
 }
 
-void Board::checkCollision(Moveable& obj)
+void Board::checkCollisions(Moveable& obj)
 {
     for (auto& unmovable : m_unmoveables)
     {
-        if (obj.get_sprite().getGlobalBounds().intersects((*unmovable).get_sprite().getGlobalBounds()))
+        if (obj.checkCollision(*unmovable))
         {
+            //obj.check(other);
             obj.handleCollision(*unmovable);
         }
     }

@@ -33,7 +33,7 @@ public:
     void movePlayer(sf::Time& deltaTime);
     void setPlayer();
     void handleCollisions();
-    void checkCollision(Moveable& obj);
+    void checkCollisions(Moveable& obj);
 
 private:
     Figures m_figures;

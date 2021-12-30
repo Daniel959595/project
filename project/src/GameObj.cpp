@@ -1,4 +1,6 @@
 #include "GameObj.h"
+#include "Wall.h"
+#include "King.h"
 #include <iostream>
 
 GameObj::GameObj(const sf::Texture& texture, const sf::Vector2f& position)
@@ -12,14 +14,19 @@ void GameObj::draw(sf::RenderWindow& window)
 	window.draw(m_sprite);
 }
 
-const sf::Sprite& GameObj::get_sprite() const
+bool GameObj::checkCollision(const GameObj& other) const
 {
-	return m_sprite;
+	return m_sprite.getGlobalBounds().intersects(other.m_sprite.getGlobalBounds());
 }
 
-void GameObj::handleCollision(GameObj& gameObj)
+//void GameObj::handleCollision(GameObj& gameObj)
+//{
+//	if (&gameObj == this) return;
+//	// double dispatch
+//	gameObj.handleCollision(*this);
+//}
+
+void GameObj::handleCollision(Wall& gameObj)
 {
-    if (&gameObj == this) return;
-    // double dispatch
-    gameObj.handleCollision(*this);
+	return;
 }

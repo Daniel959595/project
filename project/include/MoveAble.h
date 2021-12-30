@@ -14,7 +14,7 @@ public:
 	virtual ~Moveable() = 0 {}
 
 	virtual void move(sf::Time& deltaTime);
-	virtual void moveBack();
+	virtual void moveBack() {};
 	//virtual void handleCollis(const GameObj* object);
 
 private:

@@ -1,4 +1,14 @@
 #include "Wall.h"
+#include "King.h"
+
+#include <iostream>
+
+void Wall::handleCollision(GameObj& gameObj)
+{
+	if (&gameObj == this) return;
+	// double dispatch
+	gameObj.handleCollision(*this);
+}
 
 void Wall::handleCollision(King& gameObj)
 {

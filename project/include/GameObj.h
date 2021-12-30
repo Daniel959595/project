@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include <vector>
+#include <iostream>
 
 class King;
 class Warrior;
@@ -23,20 +24,19 @@ public:
 	virtual ~GameObj() = 0 {}
 
 	void draw(sf::RenderWindow& window);
-	const sf::Sprite& get_sprite() const;
-	//void checkCollision
+	bool checkCollision(const GameObj& other) const;
 
-	virtual void handleCollision(GameObj& gameObj);
+	virtual void handleCollision(GameObj& gameObj) {};
 	virtual void handleCollision(Wall& gameObj);
-	virtual void handleCollision(Fire& gameObj);
-	virtual void handleCollision(Gate& gameObj);
-	virtual void handleCollision(Teleporter& gameObj);
-	virtual void handleCollision(Throne& gameObj);
-	virtual void handleCollision(Ork& gameObj);
-	virtual void handleCollision(King& gameObj);
-	virtual void handleCollision(Thief& gameObj);
-	virtual void handleCollision(Mage& gameObj);
-	virtual void handleCollision(Warrior& gameObj);
+	//virtual void handleCollision(Fire& gameObj);
+	//virtual void handleCollision(Gate& gameObj);
+	//virtual void handleCollision(Teleporter& gameObj);
+	//virtual void handleCollision(Throne& gameObj);
+	//virtual void handleCollision(Ork& gameObj);
+	virtual void handleCollision(King& gameObj) {};
+	//virtual void handleCollision(Thief& gameObj);
+	//virtual void handleCollision(Mage& gameObj);
+	//virtual void handleCollision(Warrior& gameObj);
 	//virtual void handleCollision(Dwarf& gameObj);
 
 protected:

@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Moveable.h"
+#include "GameObj.h"
 
 
 class King : public Moveable
@@ -9,7 +10,8 @@ class King : public Moveable
 public:
 	using Moveable::Moveable;
 
-	virtual void handleCollision(Wall& gameObj) override;
+    void handleCollision(GameObj& gameObj) override;
+    void handleCollision(Wall& gameObj) override;
 };
 
 
