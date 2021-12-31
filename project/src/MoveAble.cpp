@@ -1,5 +1,8 @@
 #include "Moveable.h"
+#include <iostream>
 
+
+sf::Clock Moveable::m_clock;
 
 namespace
 {
@@ -27,7 +30,13 @@ namespace
     }
 }
 
-void Moveable::move(sf::Time& deltaTime)
+//void Moveable::move(sf::Time& deltaTime)
+//{
+//    m_sprite.move(dirFromKey() * m_speed * deltaTime.asSeconds());
+//}
+
+void Moveable::move()
 {
+    auto deltaTime = m_clock.restart();
     m_sprite.move(dirFromKey() * m_speed * deltaTime.asSeconds());
 }

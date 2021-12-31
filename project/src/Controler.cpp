@@ -80,8 +80,9 @@ void Controller::handleEvents()
 
 void Controller::updateGameObjects()
 {
-	auto deltaTime = m_clock.restart();
-	m_board.movePlayer(deltaTime);
+	/*auto deltaTime = m_clock.restart();
+	m_board.movePlayer(deltaTime);*/
+	m_board.movePlayer();
 	//m_board.moveDwarfs(deltaTime);
 }
 

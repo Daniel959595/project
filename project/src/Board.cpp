@@ -105,9 +105,14 @@ void Board::draw(sf::RenderWindow& window)
     }
 }
 
-void Board::movePlayer(sf::Time& deltaTime)
+//void Board::movePlayer(sf::Time& deltaTime)
+//{
+//    m_moveables[m_playerIndex]->move(deltaTime);
+//}
+
+void Board::movePlayer()
 {
-    m_moveables[m_playerIndex]->move(deltaTime);
+    m_moveables[m_playerIndex]->move();
 }
 
 void Board::setPlayer()

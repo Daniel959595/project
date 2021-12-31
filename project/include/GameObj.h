@@ -27,7 +27,7 @@ public:
 	bool checkCollision(const GameObj& other) const;
 
 	virtual void handleCollision(GameObj& gameObj) {};
-	virtual void handleCollision(Wall& gameObj);
+	virtual void handleCollision(Wall& gameObj) {};
 	//virtual void handleCollision(Fire& gameObj);
 	//virtual void handleCollision(Gate& gameObj);
 	//virtual void handleCollision(Teleporter& gameObj);

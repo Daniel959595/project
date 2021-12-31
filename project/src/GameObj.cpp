@@ -26,7 +26,7 @@ bool GameObj::checkCollision(const GameObj& other) const
 //	gameObj.handleCollision(*this);
 //}
 
-void GameObj::handleCollision(Wall& gameObj)
-{
-	return;
-}
+//void GameObj::handleCollision(Wall& gameObj)
+//{
+//	return;
+//}
