@@ -14,6 +14,7 @@ public:
 	virtual void handleCollision(Fire& gameObj) override;
 	virtual void handleCollision(Ork& gameObj) override;
 	virtual void handleCollision(Gate& gameObj) override;
+	virtual void handleCollision(Teleporter& gameObj) override;
 
 	bool isKey() const { return m_isKey; }
 

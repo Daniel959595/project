@@ -4,6 +4,6 @@
 int main()
 {
 	Controller my_game;
-	my_game.menu();
+	my_game.menuAndRun();
 
 }

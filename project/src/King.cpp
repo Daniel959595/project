@@ -3,6 +3,8 @@
 #include "Fire.h"
 #include "Ork.h"
 #include "Gate.h"
+#include "Teleporter.h"
+#include <iostream>
 
 void King::handleCollision(GameObj& gameObj)
 {
@@ -29,6 +31,13 @@ void King::handleCollision(Ork& gameObj)
 void King::handleCollision(Gate& gameObj)
 {
 	moveBack(gameObj);
+}
+
+void King::handleCollision(Teleporter& gameObj)
+{
+	this->m_position = gameObj.getTwinPos();
+	this->m_sprite.setPosition(m_position);
+	std::cout << "teleporter\n";
 }
 
 

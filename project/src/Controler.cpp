@@ -10,7 +10,7 @@ Controller::Controller()
 {
 }
 
-void Controller::menu()
+void Controller::menuAndRun()
 {
 	//help()
 	loadLevels();

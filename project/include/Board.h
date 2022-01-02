@@ -30,6 +30,7 @@ public:
     void draw(sf::RenderWindow& window);
     void readData(std::ifstream& in);
     void loadVectors(char letter, float row, float col);
+    void setTeleportTwins();
     //void movePlayer(sf::Time& deltaTime);
     void movePlayer();
     void setPlayer();

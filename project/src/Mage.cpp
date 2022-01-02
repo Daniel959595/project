@@ -3,6 +3,7 @@
 #include "Fire.h"
 #include "Ork.h"
 #include "Gate.h"
+#include "Teleporter.h"
 
 
 void Mage::handleCollision(GameObj& gameObj)
@@ -31,3 +32,8 @@ void Mage::handleCollision(Gate& gameObj)
 {
 	moveBack(gameObj);
 }
+
+//void Mage::handleCollision(Teleporter& gameObj)
+//{
+//	m_position = gameObj.getTwinPos();
+//}

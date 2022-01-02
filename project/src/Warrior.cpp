@@ -2,6 +2,7 @@
 #include "Wall.h"
 #include "Fire.h"
 #include "Gate.h"
+#include "Teleporter.h"
 
 
 void Warrior::handleCollision(GameObj& gameObj)
@@ -29,4 +30,10 @@ void Warrior::handleCollision(Fire& gameObj)
 void Warrior::handleCollision(Gate& gameObj)
 {
 	moveBack(gameObj);
+}
+
+void Warrior::handleCollision(Teleporter& gameObj)
+{
+	m_position = gameObj.getTwinPos();
+	this->m_sprite.setPosition(m_position);
 }

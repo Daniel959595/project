@@ -28,6 +28,7 @@ void Board::readData(std::ifstream& in)
                 continue;
             loadVectors(matrix[row][col], float(row), float(col));
 		}
+    setTeleportTwins();
 }
 
 void Board::loadVectors(char letter, float row, float col)
@@ -92,6 +93,25 @@ void Board::loadVectors(char letter, float row, float col)
     }
 }
 
+void Board::setTeleportTwins()
+{
+    std::vector<int> teleportIndex;
+    for (int i = 0; i < m_unmoveables.size(); i++)
+        if (typeid(*m_unmoveables[i]) == typeid(Teleporter))
+        {
+            std::cout << "kuku!\n";
+            teleportIndex.push_back(i);
+        }
+    
+    for (int i = 0; i < teleportIndex.size(); i++)
+    {
+        m_unmoveables[teleportIndex[i]]->setTwinPos(m_unmoveables[teleportIndex[teleportIndex.size() - 1 - i]]->getPos());
+    }
+
+
+}
+
+
 void Board::draw(sf::RenderWindow& window)
 {
     for (auto &index : m_moveables)
@@ -118,7 +138,7 @@ void Board::movePlayer()
 void Board::setPlayer()
 {
     static int i = 0;
-    m_playerIndex = (i++)%4;
+    m_playerIndex = (++i)%4;
     if (i > 3)
         i = 0;
 }

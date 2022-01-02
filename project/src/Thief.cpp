@@ -3,6 +3,7 @@
 #include "Fire.h"
 #include "Ork.h"
 #include "Gate.h"
+#include "Teleporter.h"
 
 
 void Thief::handleCollision(GameObj& gameObj)
@@ -30,4 +31,10 @@ void Thief::handleCollision(Ork& gameObj)
 void Thief::handleCollision(Gate& gameObj)
 {
 	moveBack(gameObj);
+}
+
+void Thief::handleCollision(Teleporter& gameObj)
+{
+	m_position = gameObj.getTwinPos();
+	this->m_sprite.setPosition(m_position);
 }

@@ -30,7 +30,7 @@ public:
 	virtual void handleCollision(Wall& gameObj) {};
 	virtual void handleCollision(Fire& gameObj) {};
 	virtual void handleCollision(Gate& gameObj) {};
-	//virtual void handleCollision(Teleporter& gameObj);
+	virtual void handleCollision(Teleporter& gameObj) {};
 	//virtual void handleCollision(Throne& gameObj);
 	virtual void handleCollision(Ork& gameObj) {};
 	virtual void handleCollision(King& gameObj) {};
@@ -43,6 +43,7 @@ public:
 	float getWidth();
 	float getTopBounds();
 	float getHeight();
+	sf::Vector2f getPos() { return m_position; }
 	bool isDisposed() const;
 
 protected:

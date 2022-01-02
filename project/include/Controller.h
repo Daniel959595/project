@@ -7,7 +7,7 @@ class Controller
 {
 public:
 	Controller();
-	void menu();
+	void menuAndRun();
 
 private:
 	sf::RenderWindow m_window;
