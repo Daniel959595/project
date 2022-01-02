@@ -38,6 +38,25 @@ public:
 	//virtual void handleCollision(Mage& gameObj);
 	//virtual void handleCollision(Warrior& gameObj);
 	//virtual void handleCollision(Dwarf& gameObj);
+	float getLeftBounds()
+	{
+		return m_sprite.getGlobalBounds().left;
+	}
+
+	float getWidth()
+	{
+		return m_sprite.getGlobalBounds().width;
+	}
+
+	float getTopBounds()
+	{
+		return m_sprite.getGlobalBounds().top;
+	}
+
+	float getHeight()
+	{
+		return m_sprite.getGlobalBounds().height;
+	}
 
 protected:
 	sf::Sprite m_sprite;

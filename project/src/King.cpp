@@ -1,4 +1,5 @@
 #include "King.h"
+#include "Wall.h"
 #include <iostream>
 
 void King::handleCollision(GameObj& gameObj)
@@ -10,8 +11,8 @@ void King::handleCollision(GameObj& gameObj)
 
 void King::handleCollision(Wall& gameObj)
 {
-	std::cout << "king collis wall!\n";
-	moveBack();
+	//std::cout << "king collis wall!\n";
+	moveBack(gameObj);
 }
 
 
