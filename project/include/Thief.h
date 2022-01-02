@@ -8,7 +8,17 @@ class Thief : public Moveable
 {
 public:
 	using Moveable::Moveable;
-	//King(const sf::Texture& texture, const sf::Vector2f& position);
+
+	virtual void handleCollision(GameObj& gameObj) override;
+	virtual void handleCollision(Wall& gameObj) override;
+	virtual void handleCollision(Fire& gameObj) override;
+	virtual void handleCollision(Ork& gameObj) override;
+	virtual void handleCollision(Gate& gameObj) override;
+
+	bool isKey() const { return m_isKey; }
+
+private:
+	bool m_isKey = false;
 
 };
 

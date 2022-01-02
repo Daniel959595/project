@@ -1,6 +1,8 @@
 #include "King.h"
 #include "Wall.h"
-#include <iostream>
+#include "Fire.h"
+#include "Ork.h"
+#include "Gate.h"
 
 void King::handleCollision(GameObj& gameObj)
 {
@@ -11,8 +13,23 @@ void King::handleCollision(GameObj& gameObj)
 
 void King::handleCollision(Wall& gameObj)
 {
-	//std::cout << "king collis wall!\n";
 	moveBack(gameObj);
 }
+
+void King::handleCollision(Fire& gameObj)
+{
+	moveBack(gameObj);
+}
+
+void King::handleCollision(Ork& gameObj)
+{
+	moveBack(gameObj);
+}
+
+void King::handleCollision(Gate& gameObj)
+{
+	moveBack(gameObj);
+}
+
 
 

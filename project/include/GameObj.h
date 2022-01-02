@@ -28,37 +28,27 @@ public:
 
 	virtual void handleCollision(GameObj& gameObj) {};
 	virtual void handleCollision(Wall& gameObj) {};
-	//virtual void handleCollision(Fire& gameObj);
-	//virtual void handleCollision(Gate& gameObj);
+	virtual void handleCollision(Fire& gameObj) {};
+	virtual void handleCollision(Gate& gameObj) {};
 	//virtual void handleCollision(Teleporter& gameObj);
 	//virtual void handleCollision(Throne& gameObj);
-	//virtual void handleCollision(Ork& gameObj);
+	virtual void handleCollision(Ork& gameObj) {};
 	virtual void handleCollision(King& gameObj) {};
-	//virtual void handleCollision(Thief& gameObj);
-	//virtual void handleCollision(Mage& gameObj);
-	//virtual void handleCollision(Warrior& gameObj);
+	virtual void handleCollision(Thief& gameObj) {};
+	virtual void handleCollision(Mage& gameObj) {};
+	virtual void handleCollision(Warrior& gameObj) {};
 	//virtual void handleCollision(Dwarf& gameObj);
-	float getLeftBounds()
-	{
-		return m_sprite.getGlobalBounds().left;
-	}
 
-	float getWidth()
-	{
-		return m_sprite.getGlobalBounds().width;
-	}
-
-	float getTopBounds()
-	{
-		return m_sprite.getGlobalBounds().top;
-	}
-
-	float getHeight()
-	{
-		return m_sprite.getGlobalBounds().height;
-	}
+	float getLeftBounds();
+	float getWidth();
+	float getTopBounds();
+	float getHeight();
+	bool isDisposed() const;
 
 protected:
 	sf::Sprite m_sprite;
 	sf::Vector2f m_position;
+
+	bool m_isDisposed = false;
+
 };

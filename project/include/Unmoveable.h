@@ -15,4 +15,6 @@ public:
 	virtual ~Unmoveable() = 0 {}
 	//virtual void move();
 	//virtual void handleCollis(const GameObj* object);
+protected:
+
 };

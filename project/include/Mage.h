@@ -8,7 +8,12 @@ class Mage : public Moveable
 {
 public:
 	using Moveable::Moveable;
-	//King(const sf::Texture& texture, const sf::Vector2f& position);
+
+	virtual void handleCollision(GameObj& gameObj) override;
+	virtual void handleCollision(Wall& gameObj) override;
+	//virtual void handleCollision(Fire& gameObj) override;
+	virtual void handleCollision(Ork& gameObj) override;
+	virtual void handleCollision(Gate& gameObj) override;
 
 };
 

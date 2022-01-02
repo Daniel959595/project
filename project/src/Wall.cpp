@@ -1,7 +1,9 @@
 #include "Wall.h"
 #include "King.h"
+#include "Mage.h"
+#include "Warrior.h"
+#include "Thief.h"
 
-#include <iostream>
 
 void Wall::handleCollision(GameObj& gameObj)
 {
@@ -15,17 +17,18 @@ void Wall::handleCollision(King& gameObj)
 	gameObj.handleCollision(*this);
 }
 
-//void Wall::handleCollision(Warrior& gameObj)
-//{
-//	gameObj.handleCollision(*this);
-//}
-//
-//void Wall::handleCollision(Mage& gameObj)
-//{
-//	gameObj.handleCollision(*this);
-//}
-//
-//void Wall::handleCollision(Thief& gameObj)
-//{
-//	gameObj.handleCollision(*this);
-//}
+void Wall::handleCollision(Mage& gameObj)
+{
+	gameObj.handleCollision(*this);
+}
+
+void Wall::handleCollision(Warrior& gameObj)
+{
+	gameObj.handleCollision(*this);
+}
+
+void Wall::handleCollision(Thief& gameObj)
+{
+	gameObj.handleCollision(*this);
+}
+

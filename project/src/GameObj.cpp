@@ -30,3 +30,28 @@ bool GameObj::checkCollision(const GameObj& other) const
 //{
 //	return;
 //}
+
+float GameObj::getLeftBounds()
+{
+	return m_sprite.getGlobalBounds().left;
+}
+
+float GameObj::getWidth()
+{
+	return m_sprite.getGlobalBounds().width;
+}
+
+float GameObj::getTopBounds()
+{
+	return m_sprite.getGlobalBounds().top;
+}
+
+float GameObj::getHeight()
+{
+	return m_sprite.getGlobalBounds().height;
+}
+
+bool GameObj::isDisposed() const
+{
+	return m_isDisposed;
+}

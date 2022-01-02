@@ -137,6 +137,11 @@ void Board::handleCollisions()
             gameObject.handleCollision(*unmovable);
         }
     }*/
+
+    std::erase_if(m_unmoveables, [](auto& unmovable)
+        {
+            return unmovable->isDisposed();
+        });
 }
 
 void Board::checkCollisions(Moveable& obj)
