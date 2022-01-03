@@ -35,6 +35,9 @@ void Thief::handleCollision(Gate& gameObj)
 
 void Thief::handleCollision(Teleporter& gameObj)
 {
-	m_position = gameObj.getTwinPos();
+	if (this->isTeleported())
+		return;
+	this->m_position = gameObj.getTwinPos();
 	this->m_sprite.setPosition(m_position);
+	this->set_isTeleported(true); //unnecessary!
 }

@@ -150,13 +150,24 @@ void Board::handleCollisions()
         checkCollisions(*movable);
     }
 
-    /*for (auto& unmovable : m_unmoveables)
+    for (auto& movable : m_moveables)
     {
-        if (gameObject.checkCollision(*unmovable))
+        /*bool isOnTeleport = false;
+        for (int i = 0; i < teleportIndex.size(); i++)
+            if (movable->checkCollision(*m_unmoveables[teleportIndex[i]]))
+                isOnTeleport = true;
+        movable->set_isTeleported(isOnTeleport);*/
+        bool isOnTeleport = false;
+        for (auto& unmovable : m_unmoveables)
         {
-            gameObject.handleCollision(*unmovable);
+            if (typeid(*unmovable) == typeid(Teleporter))
+            {
+                if (movable->checkCollision(*unmovable))
+                    isOnTeleport = true;
+            }
         }
-    }*/
+        movable->set_isTeleported(isOnTeleport);
+    }
 
     std::erase_if(m_unmoveables, [](auto& unmovable)
         {

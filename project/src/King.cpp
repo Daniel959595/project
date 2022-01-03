@@ -35,9 +35,11 @@ void King::handleCollision(Gate& gameObj)
 
 void King::handleCollision(Teleporter& gameObj)
 {
+	if (this->isTeleported())
+		return;
 	this->m_position = gameObj.getTwinPos();
 	this->m_sprite.setPosition(m_position);
-	std::cout << "teleporter\n";
+	this->set_isTeleported(true); //unnecessary!
 }
 
 

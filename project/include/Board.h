@@ -45,4 +45,6 @@ private:
     std::vector <std::unique_ptr <Unmoveable> > m_unmoveables;
     //std::vector <std::unique_ptr <Gift> > m_gifts;
 
+    //std::vector <int> teleportIndex;
+
 };
