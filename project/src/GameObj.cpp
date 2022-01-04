@@ -19,18 +19,6 @@ bool GameObj::checkCollision(const GameObj& other) const
 	return m_sprite.getGlobalBounds().intersects(other.m_sprite.getGlobalBounds());
 }
 
-//void GameObj::handleCollision(GameObj& gameObj)
-//{
-//	if (&gameObj == this) return;
-//	// double dispatch
-//	gameObj.handleCollision(*this);
-//}
-
-//void GameObj::handleCollision(Wall& gameObj)
-//{
-//	return;
-//}
-
 float GameObj::getLeftBounds()
 {
 	return m_sprite.getGlobalBounds().left;

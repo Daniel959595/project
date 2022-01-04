@@ -30,6 +30,11 @@ void Thief::handleCollision(Ork& gameObj)
 
 void Thief::handleCollision(Gate& gameObj)
 {
+	if (m_isHaveKey)
+	{
+		m_isHaveKey = false;
+		return;
+	}
 	moveBack(gameObj);
 }
 
@@ -40,4 +45,9 @@ void Thief::handleCollision(Teleporter& gameObj)
 	this->m_position = gameObj.getTwinPos();
 	this->m_sprite.setPosition(m_position);
 	this->set_isTeleported(true); //unnecessary!
+}
+
+void Thief::handleCollision(Key& gameObj)
+{
+	m_isHaveKey = true;
 }

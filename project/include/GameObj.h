@@ -37,6 +37,7 @@ public:
 	virtual void handleCollision(Thief& gameObj) {};
 	virtual void handleCollision(Mage& gameObj) {};
 	virtual void handleCollision(Warrior& gameObj) {};
+	virtual void handleCollision(Key& gameObj) {};
 	//virtual void handleCollision(Dwarf& gameObj);
 
 	float getLeftBounds();

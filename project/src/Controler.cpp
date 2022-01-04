@@ -22,12 +22,10 @@ void Controller::loadLevels()
 	while (true)
 	{
 		std::string fileName = { "level_" + std::to_string(index) + ".txt" };
-		//fileName.insert(fileName.begin() + 6, char(48 + index));
 		std::ifstream in;
 		in.open(fileName);
 		if (!in.is_open())
 		{
-			//menu();  ??
 			std::cout << "end!\n";
 			exit (0);
 		}
@@ -80,10 +78,8 @@ void Controller::handleEvents()
 
 void Controller::updateGameObjects()
 {
-	/*auto deltaTime = m_clock.restart();
-	m_board.movePlayer(deltaTime);*/
 	m_board.movePlayer();
-	//m_board.moveDwarfs(deltaTime);
+	//dwrf
 }
 
 

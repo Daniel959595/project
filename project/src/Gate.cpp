@@ -29,8 +29,10 @@ void Gate::handleCollision(Warrior& gameObj)
 
 void Gate::handleCollision(Thief& gameObj)
 {
-	if (gameObj.isKey())
+	if (gameObj.isHaveKey())
+	{
 		m_isDisposed = true;
+	}
 	gameObj.handleCollision(*this);
 }
 

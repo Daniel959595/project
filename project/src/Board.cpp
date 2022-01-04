@@ -75,6 +75,7 @@ void Board::loadVectors(char letter, float row, float col)
         break;
 
     case 'F':      
+    case 'f':      
         m_unmoveables.push_back(std::make_unique <Key>(m_figures.getFigure(Figure(8)), location));
         break;
 
@@ -99,7 +100,6 @@ void Board::setTeleportTwins()
     for (int i = 0; i < m_unmoveables.size(); i++)
         if (typeid(*m_unmoveables[i]) == typeid(Teleporter))
         {
-            std::cout << "kuku!\n";
             teleportIndex.push_back(i);
         }
     
@@ -107,8 +107,6 @@ void Board::setTeleportTwins()
     {
         m_unmoveables[teleportIndex[i]]->setTwinPos(m_unmoveables[teleportIndex[teleportIndex.size() - 1 - i]]->getPos());
     }
-
-
 }
 
 
@@ -124,11 +122,6 @@ void Board::draw(sf::RenderWindow& window)
         index->draw(window);
     }
 }
-
-//void Board::movePlayer(sf::Time& deltaTime)
-//{
-//    m_moveables[m_playerIndex]->move(deltaTime);
-//}
 
 void Board::movePlayer()
 {
@@ -149,25 +142,9 @@ void Board::handleCollisions()
     {
         checkCollisions(*movable);
     }
-
-    for (auto& movable : m_moveables)
-    {
-        /*bool isOnTeleport = false;
-        for (int i = 0; i < teleportIndex.size(); i++)
-            if (movable->checkCollision(*m_unmoveables[teleportIndex[i]]))
-                isOnTeleport = true;
-        movable->set_isTeleported(isOnTeleport);*/
-        bool isOnTeleport = false;
-        for (auto& unmovable : m_unmoveables)
-        {
-            if (typeid(*unmovable) == typeid(Teleporter))
-            {
-                if (movable->checkCollision(*unmovable))
-                    isOnTeleport = true;
-            }
-        }
-        movable->set_isTeleported(isOnTeleport);
-    }
+    
+    teleportCollision();
+    createKey();
 
     std::erase_if(m_unmoveables, [](auto& unmovable)
         {
@@ -181,17 +158,33 @@ void Board::checkCollisions(Moveable& obj)
     {
         if (obj.checkCollision(*unmovable))
         {
-            //obj.check(other);
             obj.handleCollision(*unmovable);
         }
     }
-
-    /*for (auto& unmovable : m_unmoveables)
-    {
-        if (obj.get_sprite().getGlobalBounds().intersects((*unmovable).get_sprite().getGlobalBounds()))
-        {
-            gameObject.handleCollision(*unmovable);
-        }
-    }*/
 }
 
+void Board::teleportCollision()
+{
+    bool isOnTeleport = false;
+    for (auto& unmovable : m_unmoveables)
+    {
+        if (typeid(*unmovable) == typeid(Teleporter))
+        {
+            if (m_moveables[m_playerIndex]->checkCollision(*unmovable))
+            {
+                isOnTeleport = true;
+                break;
+            }
+        }
+    }
+    m_moveables[m_playerIndex]->set_isTeleported(isOnTeleport);
+}
+
+void Board::createKey()
+{
+    for (auto& unmovable : m_unmoveables)
+    {
+        if (typeid(*unmovable) == typeid(Ork) && unmovable->isDisposed())//static_cast?
+            m_unmoveables.push_back(std::make_unique <Key>(m_figures.getFigure(Figure(8)), unmovable->getPos()));
+    }
+}

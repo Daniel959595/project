@@ -26,25 +26,22 @@
 class Board
 {
 public:
-    //Board();
+
     void draw(sf::RenderWindow& window);
     void readData(std::ifstream& in);
     void loadVectors(char letter, float row, float col);
     void setTeleportTwins();
-    //void movePlayer(sf::Time& deltaTime);
     void movePlayer();
     void setPlayer();
     void handleCollisions();
     void checkCollisions(Moveable& obj);
+    void teleportCollision();
+    void createKey();
 
 private:
+
     Figures m_figures;
     int m_playerIndex = 0;
-
     std::vector <std::unique_ptr <Moveable> > m_moveables;
     std::vector <std::unique_ptr <Unmoveable> > m_unmoveables;
-    //std::vector <std::unique_ptr <Gift> > m_gifts;
-
-    //std::vector <int> teleportIndex;
-
 };

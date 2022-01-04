@@ -15,11 +15,12 @@ public:
 	virtual void handleCollision(Ork& gameObj) override;
 	virtual void handleCollision(Gate& gameObj) override;
 	virtual void handleCollision(Teleporter& gameObj) override;
+	virtual void handleCollision(Key& gameObj) override;
 
-	bool isKey() const { return m_isKey; }
+	bool isHaveKey() const { return m_isHaveKey; }
 
 private:
-	bool m_isKey = false;
+	bool m_isHaveKey = false;
 
 };
 
