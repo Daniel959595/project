@@ -1,4 +1,6 @@
 configure_file ("level_1.txt"  ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("level_2.txt"  ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("level_3.txt"  ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("king.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("mage.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("thief.png" ${CMAKE_BINARY_DIR} COPYONLY)

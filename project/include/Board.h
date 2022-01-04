@@ -33,10 +33,12 @@ public:
     void setTeleportTwins();
     void movePlayer();
     void setPlayer();
-    void handleCollisions();
-    void checkCollisions(Moveable& obj);
+    bool handleCollisions();
+    bool checkCollisions(Moveable& obj);
     void teleportCollision();
     void createKey();
+
+    void clearData();
 
 private:
 

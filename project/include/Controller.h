@@ -19,4 +19,5 @@ private:
 	void draw();
 	void handleEvents();
 	void updateGameObjects();
+	bool handleCollisions();
 };

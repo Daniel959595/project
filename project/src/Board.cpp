@@ -136,11 +136,12 @@ void Board::setPlayer()
         i = 0;
 }
 
-void Board::handleCollisions()
+bool Board::handleCollisions()
 {
     for (auto& movable : m_moveables)
     {
-        checkCollisions(*movable);
+        if (checkCollisions(*movable))
+            return true;
     }
     
     teleportCollision();
@@ -150,17 +151,22 @@ void Board::handleCollisions()
         {
             return unmovable->isDisposed();
         });
+
+    return false;
 }
 
-void Board::checkCollisions(Moveable& obj)
+bool Board::checkCollisions(Moveable& obj)
 {
     for (auto& unmovable : m_unmoveables)
     {
         if (obj.checkCollision(*unmovable))
         {
+            if (typeid(obj) == typeid(King) && typeid(*unmovable) == typeid(Throne))
+                return true;
             obj.handleCollision(*unmovable);
         }
     }
+    return false;
 }
 
 void Board::teleportCollision()
@@ -187,4 +193,10 @@ void Board::createKey()
         if (typeid(*unmovable) == typeid(Ork) && unmovable->isDisposed())//static_cast?
             m_unmoveables.push_back(std::make_unique <Key>(m_figures.getFigure(Figure(8)), unmovable->getPos()));
     }
+}
+
+void Board::clearData()
+{
+    m_moveables.clear();
+    m_unmoveables.clear();
 }

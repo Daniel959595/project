@@ -17,6 +17,10 @@ public:
     virtual void handleCollision(Gate& gameObj) override;
     virtual void handleCollision(Teleporter& gameObj) override;
 
+    bool isReachThrone() { return m_reachThrone; }
+private:
+    bool m_reachThrone = false;
+
 };
 
 

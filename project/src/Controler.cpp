@@ -31,6 +31,7 @@ void Controller::loadLevels()
 		}
 		m_board.readData(in);
 		run();
+		m_board.clearData();
 		index++;
 	};
 }
@@ -42,7 +43,8 @@ void Controller:: run()
 		draw();
 		handleEvents();
 		updateGameObjects();
-		m_board.handleCollisions();
+		if (handleCollisions()) //win level!
+			return;
 	}
 }
 
@@ -80,6 +82,11 @@ void Controller::updateGameObjects()
 {
 	m_board.movePlayer();
 	//dwrf
+}
+
+bool Controller::handleCollisions()
+{
+	return m_board.handleCollisions();
 }
 
 
