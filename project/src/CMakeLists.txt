@@ -17,5 +17,8 @@ target_sources (${CMAKE_PROJECT_NAME} PRIVATE "main.cpp"
                                               "Teleporter.cpp"
                                               "Throne.cpp"
                                               "Button.cpp"
+                                              "ButtonExit.cpp"
+                                              "ButtonHelp.cpp"
+                                              "ButtonRun.cpp"
                                                        )
                                              

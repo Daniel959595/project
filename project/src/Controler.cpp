@@ -12,8 +12,39 @@ Controller::Controller()
 
 void Controller::menuAndRun()
 {
-	//help()
-	loadLevels();
+	//help();
+	//loadLevels();
+	while (m_window.isOpen())
+	{
+		m_window.clear();
+		m_board.draw(m_window);
+		m_window.display();
+
+		if (auto event = sf::Event{}; m_window.waitEvent(event))
+		{
+			sf::Vector2f location;
+			switch (event.type)
+			{
+			case sf::Event::Closed:
+				m_window.close();
+				break;
+
+			case sf::Event::MouseMoved:
+				location = m_window.mapPixelToCoords(
+					{ event.mouseMove.x, event.mouseMove.y });
+				m_board.handleColor(location);
+				m_board.handleMove(location);
+				break;
+
+			case sf::Event::MouseButtonReleased:
+				location = m_window.mapPixelToCoords(
+					{ event.mouseButton.x, event.mouseButton.y });
+				m_board.handleClick(location);
+				break;
+
+			}
+		}
+	}
 }
 
 void Controller::loadLevels()
@@ -43,7 +74,7 @@ void Controller:: run()
 		draw();
 		handleEvents();
 		updateGameObjects();
-		if (handleCollisions()) //win level!
+		if (handleCollisions()) //bool:::win level!
 			return;
 	}
 }
