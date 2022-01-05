@@ -16,6 +16,6 @@ target_sources (${CMAKE_PROJECT_NAME} PRIVATE "main.cpp"
                                               "Key.cpp"
                                               "Teleporter.cpp"
                                               "Throne.cpp"
-                                              #"classes.cpp"
+                                              "Button.cpp"
                                                        )
                                              

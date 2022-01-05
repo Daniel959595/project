@@ -2,10 +2,6 @@
 #include <iostream>
 const float size = 50;
 
-//Board::Board()
-//{
-//
-//}
 
 //read the data from the file into an array and from that array
 //into the right vector.
