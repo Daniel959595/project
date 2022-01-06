@@ -23,7 +23,6 @@ void Controller::menuAndRun()
 	while (m_window.isOpen())
 	{
 		m_window.clear();
-		//m_board.draw(m_window);
 		drawButtons();
 		m_window.display();
 
@@ -60,9 +59,10 @@ void Controller::menuAndRun()
 
 void Controller::loadButtons()
 {
+	int buttonWidth = 300;
 	sf::Vector2f location;
 	auto yPos = m_window.getSize().y / 5;
-	auto xPos = m_window.getSize().x / 4;
+	auto xPos = (m_window.getSize().x / 2) - (buttonWidth / 2);
 	int i = 1;
 	location = sf::Vector2f(xPos, i++ * yPos);
 	m_buttons.push_back(std::make_unique <ButtonRun>(m_buttonsData.getButton(Button(0)), m_buttonsData.getButton(Button(1)), location, ButtonType(0)));
