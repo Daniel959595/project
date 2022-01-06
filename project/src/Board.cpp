@@ -4,6 +4,13 @@
 
 const float m_obejctSize = 50.0f;
 
+Board::Board()
+{
+    sf::Texture backGround;
+    backGround.loadFromFile("BackGround2.png");
+    m_gameBackGround.setTexture(backGround);
+}
+
 namespace
 {
     sf::Vector2f dirFromKey()
@@ -55,6 +62,11 @@ void Board::readData(std::ifstream& in)
                 continue;
             loadVectors(matrix[row][col], float(row), float(col));
 		}
+    m_frame.setSize(sf::Vector2f(m_boardWidth, m_boardHeight));
+    m_frame.setPosition(m_topLeft);
+    m_frame.setOutlineThickness(5.0f);
+    m_frame.setOutlineColor(sf::Color::Yellow);
+    m_frame.setFillColor(sf::Color::Transparent);
     setTeleportTwins();
 }
 
@@ -144,6 +156,8 @@ void Board::setTeleportTwins()
 
 void Board::draw(sf::RenderWindow& window)
 {
+    window.draw(m_gameBackGround);
+    window.draw(m_frame);
     for (auto &index : m_moveables)
     {
         index->draw(window);
@@ -163,15 +177,20 @@ void Board::movePlayer()
     {
         m_moveables[m_playerIndex]->move(direction, deltaTime);
     }
+    
+        
 }
 
 bool Board::checkBoundsCollis(sf::Vector2f& direction)
 {
     sf::Vector2f playerPos = m_moveables[m_playerIndex]->getPos();
-    sf::Vector2f targetPos(playerPos.x + direction.x, playerPos.y + direction.y);
-    float bonus = 3.0f; //fix mistakes by the edges;
-    if (targetPos.x < m_topLeft.x - bonus || targetPos.y < m_topLeft.y - bonus ||        //left and top
-        targetPos.x > m_bottomRight.x - m_obejctSize + bonus || targetPos.y > m_bottomRight.y - m_obejctSize + bonus)  //right and down
+    /*float directX = direction.x;
+    float directY = direction.y;*/
+
+    if ((direction.x < 0 && playerPos.x < m_topLeft.x) ||
+        (direction.y < 0 && playerPos.y < m_topLeft.y) ||
+        (direction.x > 0 && playerPos.x > m_bottomRight.x - m_obejctSize) ||
+        (direction.y > 0 && playerPos.y > m_bottomRight.y - m_obejctSize))
         return false;
     return true;
 }

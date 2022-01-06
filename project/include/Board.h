@@ -26,13 +26,12 @@
 class Board
 {
 public:
-
+    Board();
     void draw(sf::RenderWindow& window);
     void readData(std::ifstream& in);
     void loadVectors(char letter, float row, float col);
     void setTeleportTwins();
     void movePlayer();
-    //bool checkBounds(sf::Vector2f& direction);
     bool checkBoundsCollis(sf::Vector2f& direction);
     void setPlayer();
     bool handleCollisions();
@@ -46,11 +45,16 @@ private:
 
     Figures m_figures;
     int m_playerIndex = 0;
+
+    sf::RectangleShape m_frame;
+    sf::Sprite m_gameBackGround;
+
     sf::Vector2f m_topLeft;
     sf::Vector2f m_bottomRight;
 
     float m_boardWidth;
     float m_boardHeight;
+
     std::vector <std::unique_ptr <Moveable> > m_moveables;
     std::vector <std::unique_ptr <Unmoveable> > m_unmoveables;
 };
