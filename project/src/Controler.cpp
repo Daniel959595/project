@@ -2,22 +2,29 @@
 #include <string.h>
 #include <iostream>
 #include <fstream>
+#include "ButtonRun.h"
+#include "ButtonHelp.h"
+#include "ButtonExit.h"
+
 
 
 
 Controller::Controller()
 	: m_window(sf::VideoMode(1400, 900), "Save the King")
 {
+	loadButtons();
 }
 
 void Controller::menuAndRun()
 {
 	//help();
 	//loadLevels();
+	ButtonType pressedButton;
 	while (m_window.isOpen())
 	{
 		m_window.clear();
-		m_board.draw(m_window);
+		//m_board.draw(m_window);
+		drawButtons();
 		m_window.display();
 
 		if (auto event = sf::Event{}; m_window.waitEvent(event))
@@ -29,21 +36,85 @@ void Controller::menuAndRun()
 				m_window.close();
 				break;
 
-			case sf::Event::MouseMoved:
-				location = m_window.mapPixelToCoords(
-					{ event.mouseMove.x, event.mouseMove.y });
-				m_board.handleColor(location);
-				m_board.handleMove(location);
-				break;
+			//case sf::Event::MouseMoved:
+			//	location = m_window.mapPixelToCoords(
+			//		{ event.mouseMove.x, event.mouseMove.y });
+			//	m_board.handleColor(location);
+			//	m_board.handleMove(location);
+			//	break;
 
 			case sf::Event::MouseButtonReleased:
 				location = m_window.mapPixelToCoords(
 					{ event.mouseButton.x, event.mouseButton.y });
-				m_board.handleClick(location);
+				if (handleButtons(location))
+				{
+					pressedButton = getPressedButton(location);
+					handleButtonClick(pressedButton);
+				}
 				break;
 
 			}
 		}
+	}
+}
+
+void Controller::loadButtons()
+{
+	sf::Vector2f location;
+	auto yPos = m_window.getSize().y / 5;
+	auto xPos = m_window.getSize().x / 4;
+	int i = 1;
+	location = sf::Vector2f(xPos, i++ * yPos);
+	m_buttons.push_back(std::make_unique <ButtonRun>(m_buttonsData.getButton(Button(0)), m_buttonsData.getButton(Button(1)), location, ButtonType(0)));
+	location = sf::Vector2f(xPos, i++ * yPos);
+	m_buttons.push_back(std::make_unique <ButtonHelp>(m_buttonsData.getButton(Button(2)), m_buttonsData.getButton(Button(3)), location, ButtonType(1)));
+	location = sf::Vector2f (xPos, i * yPos);
+	m_buttons.push_back(std::make_unique <ButtonExit>(m_buttonsData.getButton(Button(4)), m_buttonsData.getButton(Button(5)), location, ButtonType(2)));
+}
+
+void Controller::drawButtons()
+{
+	for (auto& button : m_buttons)
+	{
+		button->draw(m_window);
+	}
+}
+
+bool Controller::handleButtons(sf::Vector2f& location)
+{
+	for (auto& button : m_buttons)
+	{
+		if (button->handleClick(location))
+			return true;
+	}
+	return false;
+}
+
+ButtonType Controller::getPressedButton(sf::Vector2f& location)
+{
+	ButtonType pressedButton;
+	for (auto& button : m_buttons)
+	{
+		if (button->handleClick(location))
+			pressedButton = button->getButtonType();
+	}
+	return pressedButton;
+}
+
+void Controller::handleButtonClick(ButtonType pressedButton)
+{
+	switch (pressedButton)
+	{
+	case ButtonType::ButtonRun:
+		loadLevels();
+		break;
+	case ButtonType::ButtonHelp:
+		break;
+	case ButtonType::ButtonExit:
+		m_window.close();
+		break;
+	default:
+		break;
 	}
 }
 

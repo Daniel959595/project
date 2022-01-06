@@ -2,12 +2,13 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Button.h"
+#include "My_Button.h"
 
 
-class ButtonRun : public Button
+class ButtonRun : public My_Button
 {
 public:
+	using My_Button::My_Button;
 	
 
 protected:
