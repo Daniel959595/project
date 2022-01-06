@@ -4,6 +4,31 @@
 
 const float m_obejctSize = 50.0f;
 
+namespace
+{
+    sf::Vector2f dirFromKey()
+    {
+        static const
+            std::initializer_list<std::pair<sf::Keyboard::Key, sf::Vector2f>>
+            keyToVectorMapping =
+        {
+            { sf::Keyboard::Right, { 1, 0 } },
+            { sf::Keyboard::Left , { -1, 0 } },
+            { sf::Keyboard::Up   , { 0, -1 } },
+            { sf::Keyboard::Down , { 0, 1 } },
+        };
+
+        for (const auto& pair : keyToVectorMapping)
+        {
+            if (sf::Keyboard::isKeyPressed(pair.first))
+            {
+                return pair.second;
+            }
+        }
+
+        return { 0, 0 };
+    }
+}
 
 //read the data from the file into an array and from that array
 //into the right vector.
@@ -21,6 +46,7 @@ void Board::readData(std::ifstream& in)
 
     m_boardWidth = m_obejctSize * matrix[0].size();
     m_boardHeight = m_obejctSize * matrix.size();
+    
 
 	for (int row = 0; row < matrix.size(); ++row)
 		for (int col = 0; col < matrix[row].size(); ++col)
@@ -36,6 +62,10 @@ void Board::loadVectors(char letter, float row, float col)
 {
     float startFromX = ((WINDOW_WIDTH - 350.0f) - m_boardWidth) / 2 + 350.0f;
     float startFromY = (WINDOW_HEIGHT - m_boardHeight) / 2;
+
+    m_topLeft = sf::Vector2f(startFromX, startFromY);
+    m_bottomRight = sf::Vector2f(startFromX + m_boardWidth, startFromY + m_boardHeight);
+
     sf::Vector2f location(startFromX + col * m_obejctSize , startFromY + row * m_obejctSize);
 
     switch (letter)
@@ -127,7 +157,23 @@ void Board::draw(sf::RenderWindow& window)
 
 void Board::movePlayer()
 {
-    m_moveables[m_playerIndex]->move();
+    sf::Vector2f direction(dirFromKey());
+    auto deltaTime = m_moveables[m_playerIndex]->getDeltaTime();
+    if (checkBoundsCollis(direction))
+    {
+        m_moveables[m_playerIndex]->move(direction, deltaTime);
+    }
+}
+
+bool Board::checkBoundsCollis(sf::Vector2f& direction)
+{
+    sf::Vector2f playerPos = m_moveables[m_playerIndex]->getPos();
+    sf::Vector2f targetPos(playerPos.x + direction.x, playerPos.y + direction.y);
+    float bonus = 3.0f; //fix mistakes by the edges;
+    if (targetPos.x < m_topLeft.x - bonus || targetPos.y < m_topLeft.y - bonus ||        //left and top
+        targetPos.x > m_bottomRight.x - m_obejctSize + bonus || targetPos.y > m_bottomRight.y - m_obejctSize + bonus)  //right and down
+        return false;
+    return true;
 }
 
 void Board::setPlayer()

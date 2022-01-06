@@ -44,7 +44,7 @@ public:
 	float getWidth();
 	float getTopBounds();
 	float getHeight();
-	sf::Vector2f getPos() { return m_position; }
+	sf::Vector2f getPos() { return m_sprite.getPosition(); }
 	bool isDisposed() const;
 
 protected:

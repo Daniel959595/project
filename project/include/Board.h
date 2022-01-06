@@ -32,6 +32,8 @@ public:
     void loadVectors(char letter, float row, float col);
     void setTeleportTwins();
     void movePlayer();
+    //bool checkBounds(sf::Vector2f& direction);
+    bool checkBoundsCollis(sf::Vector2f& direction);
     void setPlayer();
     bool handleCollisions();
     bool checkCollisions(Moveable& obj);
@@ -44,6 +46,9 @@ private:
 
     Figures m_figures;
     int m_playerIndex = 0;
+    sf::Vector2f m_topLeft;
+    sf::Vector2f m_bottomRight;
+
     float m_boardWidth;
     float m_boardHeight;
     std::vector <std::unique_ptr <Moveable> > m_moveables;

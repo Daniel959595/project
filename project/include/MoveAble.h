@@ -13,7 +13,8 @@ public:
 	using GameObj::GameObj;
 	virtual ~Moveable() = 0 {}
 
-	virtual void move();
+	sf::Time getDeltaTime() { return m_clock.restart(); }
+	virtual void move(sf::Vector2f& direction, sf::Time& deltaTime);
 	virtual void moveBack(GameObj& other);
 	void set_isTeleported(bool statement) { m_isTeleported = statement; }
 	bool isTeleported() { return m_isTeleported; }
