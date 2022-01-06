@@ -10,7 +10,7 @@
 
 
 Controller::Controller()
-	: m_window(sf::VideoMode(1400, 900), "Save the King")
+	: m_window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Save the King") , m_backGroundSprite(m_buttonsData.getBackGround())
 {
 	loadButtons();
 }
@@ -23,7 +23,7 @@ void Controller::menuAndRun()
 	while (m_window.isOpen())
 	{
 		m_window.clear();
-		drawButtons();
+		drawMenu();
 		m_window.display();
 
 		if (auto event = sf::Event{}; m_window.waitEvent(event))
@@ -72,8 +72,9 @@ void Controller::loadButtons()
 	m_buttons.push_back(std::make_unique <ButtonExit>(m_buttonsData.getButton(Button(4)), m_buttonsData.getButton(Button(5)), location, ButtonType(2)));
 }
 
-void Controller::drawButtons()
+void Controller::drawMenu()
 {
+	m_window.draw(m_backGroundSprite);
 	for (auto& button : m_buttons)
 	{
 		button->draw(m_window);

@@ -44,6 +44,8 @@ private:
 
     Figures m_figures;
     int m_playerIndex = 0;
+    float m_boardWidth;
+    float m_boardHeight;
     std::vector <std::unique_ptr <Moveable> > m_moveables;
     std::vector <std::unique_ptr <Unmoveable> > m_unmoveables;
 };

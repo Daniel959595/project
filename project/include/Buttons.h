@@ -18,6 +18,7 @@ class Buttons
 public:
     Buttons();
     sf::Texture& getButton(Button button);
+    sf::Texture& getBackGround();
 
 private:
     sf::Texture m_ButtonRun;
@@ -26,6 +27,7 @@ private:
     sf::Texture m_ButtonHelp2;
     sf::Texture m_ButtonExit;
     sf::Texture m_ButtonExit2;
+    sf::Texture m_BackGround;;
     
     //more picture nedeed!
 };

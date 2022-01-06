@@ -1,6 +1,8 @@
 #include "Board.h"
+#include "Controller.h"
 #include <iostream>
-const float size = 50;
+
+const float m_obejctSize = 50.0f;
 
 
 //read the data from the file into an array and from that array
@@ -17,6 +19,9 @@ void Board::readData(std::ifstream& in)
 		getline(in, str);
 	}
 
+    m_boardWidth = m_obejctSize * matrix[0].size();
+    m_boardHeight = m_obejctSize * matrix.size();
+
 	for (int row = 0; row < matrix.size(); ++row)
 		for (int col = 0; col < matrix[row].size(); ++col)
 		{
@@ -29,8 +34,9 @@ void Board::readData(std::ifstream& in)
 
 void Board::loadVectors(char letter, float row, float col)
 {
-
-    sf::Vector2f location(col * size, row * size);
+    float startFromX = ((WINDOW_WIDTH - 350.0f) - m_boardWidth) / 2 + 350.0f;
+    float startFromY = (WINDOW_HEIGHT - m_boardHeight) / 2;
+    sf::Vector2f location(startFromX + col * m_obejctSize , startFromY + row * m_obejctSize);
 
     switch (letter)
     {

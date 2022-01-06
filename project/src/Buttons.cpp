@@ -8,6 +8,7 @@ Buttons::Buttons()
     m_ButtonHelp2.loadFromFile("ButtonHelp2.png");
     m_ButtonExit.loadFromFile("ButtonExit.png");
     m_ButtonExit2.loadFromFile("ButtonExit2.png");
+    m_BackGround.loadFromFile("BackGround.png");
 }
 
 sf::Texture& Buttons::getButton(Button button)
@@ -43,5 +44,11 @@ sf::Texture& Buttons::getButton(Button button)
         break;
     }
 }
+
+sf::Texture& Buttons::getBackGround()
+{
+    return m_BackGround;
+}
+
 
 
