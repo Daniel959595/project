@@ -58,4 +58,5 @@ private:
 
     std::vector <std::unique_ptr <Moveable> > m_moveables;
     std::vector <std::unique_ptr <Unmoveable> > m_unmoveables;
+    //std::vector <std::unique_ptr <Dwarf> > m_dwarf;
 };

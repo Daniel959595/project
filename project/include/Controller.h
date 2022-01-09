@@ -19,21 +19,23 @@ private:
 
 	sf::RenderWindow m_window;
 	Board m_board;
+
 	Buttons m_buttonsData; //class with all the buttons pictures
+	ButtonType getPressedButton(sf::Vector2f& location);
 	std::vector <std::unique_ptr <My_Button> > m_buttons;
 
 	sf::Sprite m_backGroundSprite;
+	sf::Clock m_timer;
 
 	void loadButtons();
 	void drawMenu();
 	bool handleButtons(sf::Vector2f& location);
-	ButtonType getPressedButton(sf::Vector2f& location);
 	void handleButtonClick(ButtonType pressedButton);
-
 	void loadLevels();
 	void run();
 	void draw();
 	void handleEvents();
+	void handleTimer();
 	void updateGameObjects();
 	bool handleCollisions();
 };

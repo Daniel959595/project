@@ -5,12 +5,12 @@
 #include "Thief.h"
 
 
-void Gate::handleCollision(GameObj& gameObj)
-{
-	if (&gameObj == this) return;
-	// double dispatch
-	gameObj.handleCollision(*this);
-}
+//void Gate::handleCollision(GameObj& gameObj)
+//{
+//	if (&gameObj == this) return;
+//	// double dispatch
+//	gameObj.handleCollision(*this);
+//}
 
 void Gate::handleCollision(King& gameObj)
 {

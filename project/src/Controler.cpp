@@ -118,6 +118,8 @@ void Controller::handleButtonClick(ButtonType pressedButton)
 		break;
 	}
 }
+/// <buttons>
+/////////////////////////////////////////////////////////////
 
 void Controller::loadLevels()
 {
@@ -139,7 +141,7 @@ void Controller::loadLevels()
 	};
 }
 
-void Controller:: run()
+void Controller::run()
 {
 	while (m_window.isOpen())
 	{

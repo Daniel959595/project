@@ -270,3 +270,5 @@ void Board::clearData()
     m_moveables.clear();
     m_unmoveables.clear();
 }
+
+
