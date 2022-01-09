@@ -6,7 +6,6 @@ const float m_obejctSize = 50.0f;
 
 Board::Board()
 {
-    sf::Texture backGround;
     backGround.loadFromFile("BackGround2.png");
     m_gameBackGround.setTexture(backGround);
 }
@@ -64,9 +63,9 @@ void Board::readData(std::ifstream& in)
 		}
     m_frame.setSize(sf::Vector2f(m_boardWidth, m_boardHeight));
     m_frame.setPosition(m_topLeft);
-    m_frame.setOutlineThickness(5.0f);
-    m_frame.setOutlineColor(sf::Color::Yellow);
-    m_frame.setFillColor(sf::Color::Transparent);
+    m_frame.setOutlineThickness(10.0f);
+    m_frame.setOutlineColor(sf::Color::Color(210, 105, 30));
+    m_frame.setFillColor(sf::Color::Color(0, 128, 0));
     setTeleportTwins();
 }
 
@@ -184,9 +183,7 @@ void Board::movePlayer()
 bool Board::checkBoundsCollis(sf::Vector2f& direction)
 {
     sf::Vector2f playerPos = m_moveables[m_playerIndex]->getPos();
-    /*float directX = direction.x;
-    float directY = direction.y;*/
-
+    
     if ((direction.x < 0 && playerPos.x < m_topLeft.x) ||
         (direction.y < 0 && playerPos.y < m_topLeft.y) ||
         (direction.x > 0 && playerPos.x > m_bottomRight.x - m_obejctSize) ||

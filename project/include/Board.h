@@ -47,6 +47,7 @@ private:
     int m_playerIndex = 0;
 
     sf::RectangleShape m_frame;
+    sf::Texture backGround;
     sf::Sprite m_gameBackGround;
 
     sf::Vector2f m_topLeft;
