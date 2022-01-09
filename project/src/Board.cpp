@@ -2,7 +2,7 @@
 #include "Controller.h"
 #include <iostream>
 
-const float m_obejctSize = 50.0f;
+const float OBJ_SIZE = 50.0f;
 
 Board::Board()
 {
@@ -50,8 +50,8 @@ void Board::readData(std::ifstream& in)
 		getline(in, str);
 	}
 
-    m_boardWidth = m_obejctSize * matrix[0].size();
-    m_boardHeight = m_obejctSize * matrix.size();
+    m_boardWidth = OBJ_SIZE * matrix[0].size();
+    m_boardHeight = OBJ_SIZE * matrix.size();
     
 
 	for (int row = 0; row < matrix.size(); ++row)
@@ -61,13 +61,19 @@ void Board::readData(std::ifstream& in)
                 continue;
             loadVectors(matrix[row][col], float(row), float(col));
 		}
+    initFrame();
+    setTeleportTwins();
+}
+
+void Board::initFrame()
+{
     m_frame.setSize(sf::Vector2f(m_boardWidth, m_boardHeight));
     m_frame.setPosition(m_topLeft);
     m_frame.setOutlineThickness(10.0f);
     m_frame.setOutlineColor(sf::Color::Color(210, 105, 30));
     m_frame.setFillColor(sf::Color::Color(0, 128, 0));
-    setTeleportTwins();
 }
+
 
 void Board::loadVectors(char letter, float row, float col)
 {
@@ -77,7 +83,7 @@ void Board::loadVectors(char letter, float row, float col)
     m_topLeft = sf::Vector2f(startFromX, startFromY);
     m_bottomRight = sf::Vector2f(startFromX + m_boardWidth, startFromY + m_boardHeight);
 
-    sf::Vector2f location(startFromX + col * m_obejctSize , startFromY + row * m_obejctSize);
+    sf::Vector2f location(startFromX + col * OBJ_SIZE , startFromY + row * OBJ_SIZE);
 
     switch (letter)
     {
@@ -186,8 +192,8 @@ bool Board::checkBoundsCollis(sf::Vector2f& direction)
     
     if ((direction.x < 0 && playerPos.x < m_topLeft.x) ||
         (direction.y < 0 && playerPos.y < m_topLeft.y) ||
-        (direction.x > 0 && playerPos.x > m_bottomRight.x - m_obejctSize) ||
-        (direction.y > 0 && playerPos.y > m_bottomRight.y - m_obejctSize))
+        (direction.x > 0 && playerPos.x > m_bottomRight.x - OBJ_SIZE) ||
+        (direction.y > 0 && playerPos.y > m_bottomRight.y - OBJ_SIZE))
         return false;
     return true;
 }

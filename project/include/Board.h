@@ -38,7 +38,7 @@ public:
     bool checkCollisions(Moveable& obj);
     void teleportCollision();
     void createKey();
-
+    void initFrame();
     void clearData();
 
 private:
