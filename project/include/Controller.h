@@ -25,17 +25,17 @@ private:
 	std::vector <std::unique_ptr <My_Button> > m_buttons;
 
 	sf::Sprite m_backGroundSprite;
-	sf::Clock m_timer;
 
 	void loadButtons();
 	void drawMenu();
 	bool handleButtons(sf::Vector2f& location);
 	void handleButtonClick(ButtonType pressedButton);
 	void loadLevels();
-	void run();
+	bool run();  //return false if the player fails or pressed es
 	void draw();
 	void handleEvents();
-	void handleTimer();
 	void updateGameObjects();
+	void updateGifts();
 	bool handleCollisions();
+	bool handleTime();
 };

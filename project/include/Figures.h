@@ -15,6 +15,8 @@ enum class Figure
     m_key,
     m_teleporter,
     m_throne,
+    m_gift,
+    m_dwarf,
 };
 
 class Figures
@@ -35,4 +37,6 @@ private:
     sf::Texture m_key;
     sf::Texture m_teleporter;
     sf::Texture m_throne;
+    sf::Texture m_gift;
+    sf::Texture m_dwarf;
 };

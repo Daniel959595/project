@@ -13,6 +13,8 @@ Figures::Figures()
     m_key.loadFromFile("key.png");
     m_teleporter.loadFromFile("teleporter.png");
     m_throne.loadFromFile("throne.png");
+    m_gift.loadFromFile("gift.png");
+    m_dwarf.loadFromFile("dwarf.png");
 }
 
 sf::Texture& Figures::getFigure(Figure figure)
@@ -60,6 +62,14 @@ sf::Texture& Figures::getFigure(Figure figure)
 
     case Figure::m_throne:
         return m_throne;
+        break;
+
+    case Figure::m_gift:
+        return m_gift;
+        break;
+
+    case Figure::m_dwarf:
+        return m_dwarf;
         break;
 
     default:

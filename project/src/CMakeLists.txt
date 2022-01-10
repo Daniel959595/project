@@ -1,6 +1,7 @@
 target_sources (${CMAKE_PROJECT_NAME} PRIVATE "main.cpp"
                                               "Controler.cpp"
                                               "Board.cpp"
+                                              "Timers.cpp"
                                               "GameObj.cpp"
 
                                               "Moveable.cpp"

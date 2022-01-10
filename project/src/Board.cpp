@@ -1,6 +1,12 @@
+#include <iostream>
+#include <stdlib.h>
+#include <Time.h>
+
 #include "Board.h"
 #include "Controller.h"
-#include <iostream>
+#include "GiftAddTime.h"
+#include "GiftRedTime.h"
+#include "GiftRmvDwarf.h"
 
 const float OBJ_SIZE = 50.0f;
 
@@ -63,6 +69,7 @@ void Board::readData(std::ifstream& in)
 		}
     initFrame();
     setTeleportTwins();
+    setEmptySlots(matrix);
 }
 
 void Board::initFrame()
@@ -158,17 +165,87 @@ void Board::setTeleportTwins()
     }
 }
 
+void Board::setEmptySlots(std::vector<std::string>& matrix)
+{
+    float startFromX = ((WINDOW_WIDTH - 350.0f) - m_boardWidth) / 2 + 350.0f;
+    float startFromY = (WINDOW_HEIGHT - m_boardHeight) / 2;
+
+    sf::Vector2f location;
+    for (int row = 0; row < matrix.size(); ++row)
+        for (int col = 0; col < matrix[row].size(); ++col)
+        {
+            if (matrix[row][col] == ' ')
+            {
+                location = sf::Vector2f(startFromX + OBJ_SIZE * col, startFromY + OBJ_SIZE * row);
+                m_emptySlots.push_back(std::make_unique <sf::Vector2f>(location));
+            }
+        }
+}
+
+void Board::handleGifts()
+{
+    int timePassed = m_gameTime.getTimePassed();
+    std::erase_if(m_gifts, [](auto& gift)
+        {
+            return gift->isDisposed();
+        });
+
+    addRandomGift(timePassed);
+
+}
+
+void Board::addRandomGift(int timePassed)
+{
+    srand(time(NULL));
+    int randomGift = rand() % 3;
+    int randomPos = rand() % m_emptySlots.size();
+
+    if (timePassed % 20 == 0)
+    {
+        switch (randomGift)
+        {
+        case 0:
+            m_gifts.push_back(std::make_unique <GiftAddTime> (m_figures.getFigure(Figure(11)), getRandomPos()));
+            break;
+
+        case 1:
+            m_gifts.push_back(std::make_unique <GiftRedTime>(m_figures.getFigure(Figure(11)), getRandomPos()));
+            break;
+
+        case 2:
+            m_gifts.push_back(std::make_unique <GiftRmvDwarf>(m_figures.getFigure(Figure(11)), getRandomPos()));
+            break;
+
+        default:
+            m_gifts.push_back(std::make_unique <GiftAddTime>(m_figures.getFigure(Figure(11)), getRandomPos()));
+            break;
+        }
+    }
+}
+
+sf::Vector2f& Board::getRandomPos()
+{
+    int index = m_emptySlots.size();
+    int randomPos = rand() % index;
+    return *m_emptySlots[randomPos];
+}
 
 void Board::draw(sf::RenderWindow& window)
 {
     window.draw(m_gameBackGround);
     window.draw(m_frame);
+    m_gameTime.draw(window);
     for (auto &index : m_moveables)
     {
         index->draw(window);
     }
 
     for (auto& index : m_unmoveables)
+    {
+        index->draw(window);
+    }
+
+    for (auto& index : m_gifts)
     {
         index->draw(window);
     }
@@ -236,7 +313,30 @@ bool Board::checkCollisions(Moveable& obj)
             obj.handleCollision(*unmovable);
         }
     }
+
+    for (auto& gift : m_gifts)
+    {
+        if (obj.checkCollision(*gift))
+            gift->handleCollision(obj, *this);
+    }
+
     return false;
+}
+
+void Board::startTime()
+{
+    m_gameTime.startGameTime();
+}
+
+void Board::setTimer(bool statement)
+{
+    m_gameTime.setIsTimer(statement);
+}
+
+
+bool Board::handleTime()
+{
+    return m_gameTime.handleTime();
 }
 
 void Board::teleportCollision()
@@ -269,6 +369,22 @@ void Board::clearData()
 {
     m_moveables.clear();
     m_unmoveables.clear();
+    m_gifts.clear();
+    //m_gameTime.restartTimer(); ?
 }
 
+void Board::addTime()
+{
+    m_gameTime.addTime(30);
+}
 
+void Board::redTime()
+{
+    m_gameTime.redTime(30);
+}
+
+void Board::rmvDwarf()
+{
+    //m_dwarf.clear(); ?
+    return;
+}

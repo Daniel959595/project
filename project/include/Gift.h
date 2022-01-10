@@ -1,8 +1,9 @@
 #pragma once
 
-#include "Board.h"
 #include "Unmoveable.h"
 #include "Moveable.h"
+
+class Board;
 
 class Gift : public Unmoveable
 {
@@ -11,6 +12,16 @@ public:
 	virtual ~Gift() = 0 {}
 
 	virtual void activateGift(Board& board) {};
+	//void handleGiftLife(); //delete the gift after a constant time.
 
-    void handleCollision(Moveable& gameObj) ;
+	virtual void handleCollision(GameObj& gameObj, Board& board);
+	virtual void handleCollision(King& gameObj, Board& board);
+	virtual void handleCollision(Thief& gameObj, Board& board);
+	virtual void handleCollision(Mage& gameObj, Board& board);
+	virtual void handleCollision(Warrior& gameObj, Board& board);
+
+private:
+	sf::Clock m_clock;
+	int m_lifetime = 15;
+
 };

@@ -124,7 +124,8 @@ void Controller::handleButtonClick(ButtonType pressedButton)
 void Controller::loadLevels()
 {
 	int index = 1;
-	while (true)
+	m_board.startTime(); 
+	while (m_window.isOpen())
 	{
 		std::string fileName = { "level_" + std::to_string(index) + ".txt" };
 		std::ifstream in;
@@ -135,21 +136,26 @@ void Controller::loadLevels()
 			exit (0);
 		}
 		m_board.readData(in);
-		run();
+		m_board.setTimer(true); 
+		if (!run())
+			index--;
 		m_board.clearData();
 		index++;
 	};
 }
 
-void Controller::run()
+bool Controller::run()
 {
 	while (m_window.isOpen())
 	{
 		draw();
 		handleEvents();
 		updateGameObjects();
+		updateGifts();
+		if (!handleTime())
+			return false;
 		if (handleCollisions()) //bool:::win level!
-			return;
+			return true;
 	}
 }
 
@@ -157,6 +163,7 @@ void Controller::draw()
 {
 	m_window.clear();
 	m_board.draw(m_window);
+	//m_gameTime.draw(m_window);
 	m_window.display();
 }
 
@@ -189,9 +196,18 @@ void Controller::updateGameObjects()
 	//dwrf
 }
 
+void Controller::updateGifts()
+{
+	m_board.handleGifts();
+}
+
 bool Controller::handleCollisions()
 {
 	return m_board.handleCollisions();
 }
 
+bool Controller::handleTime()
+{
+	return m_board.handleTime();
+}
 
