@@ -22,6 +22,7 @@
 #include "Ork.h"
 #include "Throne.h"
 #include "Gift.h"
+#include "Dwarf.h"
 
 
 

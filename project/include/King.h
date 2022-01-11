@@ -16,6 +16,7 @@ public:
     virtual void handleCollision(Ork& gameObj) override;
     virtual void handleCollision(Gate& gameObj) override;
     virtual void handleCollision(Teleporter& gameObj) override;
+    virtual void handleCollision(Dwarf& gameObj) override;
 
     bool isReachThrone() { return m_reachThrone; }
 private:

@@ -9,6 +9,8 @@
 #include "GiftRmvDwarf.h"
 
 const float OBJ_SIZE = 50.0f;
+const float INFO_AREA = 350.0f;
+
 
 Board::Board()
 {
@@ -58,8 +60,13 @@ void Board::readData(std::ifstream& in)
 
     m_boardWidth = OBJ_SIZE * matrix[0].size();
     m_boardHeight = OBJ_SIZE * matrix.size();
-    
 
+    float startFromX = ((WINDOW_WIDTH - INFO_AREA) - m_boardWidth) / 2 + INFO_AREA;
+    float startFromY = (WINDOW_HEIGHT - m_boardHeight) / 2;
+
+    m_topLeft = sf::Vector2f(startFromX, startFromY);
+    m_bottomRight = sf::Vector2f(startFromX + m_boardWidth, startFromY + m_boardHeight);
+    
 	for (int row = 0; row < matrix.size(); ++row)
 		for (int col = 0; col < matrix[row].size(); ++col)
 		{
@@ -84,36 +91,38 @@ void Board::initFrame()
 
 void Board::loadVectors(char letter, float row, float col)
 {
-    float startFromX = ((WINDOW_WIDTH - 350.0f) - m_boardWidth) / 2 + 350.0f;
-    float startFromY = (WINDOW_HEIGHT - m_boardHeight) / 2;
-
-    m_topLeft = sf::Vector2f(startFromX, startFromY);
-    m_bottomRight = sf::Vector2f(startFromX + m_boardWidth, startFromY + m_boardHeight);
-
-    sf::Vector2f location(startFromX + col * OBJ_SIZE , startFromY + row * OBJ_SIZE);
+    sf::Vector2f location(m_topLeft.x + col * OBJ_SIZE , m_topLeft.y + row * OBJ_SIZE);
 
     switch (letter)
     {
+        ///////////////////////////////////m_moveables//////////////////////////////
+
     case 'K':
     case 'k': 
-        m_moveables.push_back(std::make_unique <King>(m_figures.getFigure(Figure(0)), location));
+        m_moveables.insert(m_moveables.begin(), std::make_unique <King>(m_figures.getFigure(Figure(0)), location));
         break;
 
     case 'W':
     case 'w':
-        m_moveables.push_back(std::make_unique <Warrior>(m_figures.getFigure(Figure(1)), location));
+        m_moveables.insert(m_moveables.begin(), std::make_unique <Warrior>(m_figures.getFigure(Figure(1)), location));
         break;
 
     case 'M':
     case 'm':
-        m_moveables.push_back(std::make_unique <Mage>(m_figures.getFigure(Figure(2)), location));
+        m_moveables.insert(m_moveables.begin(), std::make_unique <Mage>(m_figures.getFigure(Figure(2)), location));
         break;
 
     case 'T':
     case 't':
-        m_moveables.push_back(std::make_unique <Thief>(m_figures.getFigure(Figure(3)), location));
+        m_moveables.insert(m_moveables.begin(), std::make_unique <Thief>(m_figures.getFigure(Figure(3)), location));
         break;
-        
+
+    case '^':
+        m_moveables.push_back(std::make_unique <Dwarf>(m_figures.getFigure(Figure(12)), location));
+        break;
+
+        ///////////////////////////////////m_unmoveables//////////////////////////////
+
     case '!':
         m_unmoveables.push_back(std::make_unique <Ork>(m_figures.getFigure(Figure(4)), location));
         break;
@@ -143,10 +152,9 @@ void Board::loadVectors(char letter, float row, float col)
     case '@':
         m_unmoveables.push_back(std::make_unique <Throne>(m_figures.getFigure(Figure(10)), location));
         break;
-        
+
     default:
         return;
-
     }
 }
 
@@ -274,7 +282,8 @@ void Board::movePlayer()
         m_moveables[m_playerIndex]->move(direction, deltaTime);
     }
     
-        
+    for (int dwarf = 4; dwarf < m_moveables.size(); dwarf++)
+        m_moveables[dwarf]->move(deltaTime);
 }
 
 bool Board::checkBoundsCollis(sf::Vector2f& direction)
@@ -333,6 +342,10 @@ bool Board::checkCollisions(Moveable& obj)
         if (obj.checkCollision(*gift))
             gift->handleCollision(obj, *this);
     }
+
+    for (int dwarf = 4; dwarf < m_moveables.size(); dwarf++)
+        if (obj.checkCollision(*m_moveables[dwarf]))
+            obj.handleCollision((*m_moveables[dwarf]));
 
     return false;
 }

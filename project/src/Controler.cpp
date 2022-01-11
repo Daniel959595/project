@@ -17,9 +17,8 @@ Controller::Controller()
 
 void Controller::menuAndRun()
 {
-	//help();
-	//loadLevels();
 	ButtonType pressedButton;
+
 	while (m_window.isOpen())
 	{
 		m_window.clear();
@@ -155,10 +154,8 @@ bool Controller::run()
 		handleEvents();
 		updateGameObjects();
 		updateGifts();
-		if (!handleTime())
-			return false;
-		if (handleCollisions()) //bool:::win level!
-			return true;
+		if (!handleTime()) return false;
+		if (handleCollisions()) return true; //bool:::win level!
 	}
 }
 
@@ -166,7 +163,6 @@ void Controller::draw()
 {
 	m_window.clear();
 	m_board.draw(m_window);
-	//m_gameTime.draw(m_window);
 	m_window.display();
 }
 

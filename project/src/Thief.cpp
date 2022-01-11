@@ -4,6 +4,7 @@
 #include "Ork.h"
 #include "Gate.h"
 #include "Teleporter.h"
+#include "Dwarf.h"
 
 
 void Thief::handleCollision(GameObj& gameObj)
@@ -50,4 +51,10 @@ void Thief::handleCollision(Teleporter& gameObj)
 void Thief::handleCollision(Key& gameObj)
 {
 	m_isHaveKey = true;
+}
+
+void Thief::handleCollision(Dwarf& gameObj)
+{
+	std::cout << "thief and dwarf!\n";
+	moveBack(gameObj);
 }

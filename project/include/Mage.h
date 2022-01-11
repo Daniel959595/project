@@ -11,10 +11,9 @@ public:
 
 	virtual void handleCollision(GameObj& gameObj) override;
 	virtual void handleCollision(Wall& gameObj) override;
-	//virtual void handleCollision(Fire& gameObj) override;
 	virtual void handleCollision(Ork& gameObj) override;
 	virtual void handleCollision(Gate& gameObj) override;
-	//virtual void handleCollision(Teleporter& gameObj) override;
+	virtual void handleCollision(Dwarf& gameObj) override;
 
 };
 

@@ -16,6 +16,8 @@ class Wall;
 class Gate;
 class Ork;
 class Throne;
+class Dwarf;
+
 
 class GameObj
 {
@@ -31,14 +33,13 @@ public:
 	virtual void handleCollision(Fire& gameObj) {};
 	virtual void handleCollision(Gate& gameObj) {};
 	virtual void handleCollision(Teleporter& gameObj) {};
-	//virtual void handleCollision(Throne& gameObj) {};
 	virtual void handleCollision(Ork& gameObj) {};
 	virtual void handleCollision(King& gameObj) {};
 	virtual void handleCollision(Thief& gameObj) {};
 	virtual void handleCollision(Mage& gameObj) {};
 	virtual void handleCollision(Warrior& gameObj) {};
 	virtual void handleCollision(Key& gameObj) {};
-	//virtual void handleCollision(Dwarf& gameObj);
+	virtual void handleCollision(Dwarf& gameObj) {};
 
 	float getLeftBounds();
 	float getWidth();
