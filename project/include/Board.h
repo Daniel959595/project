@@ -36,6 +36,7 @@ public:
     void setEmptySlots(std::vector<std::string>& matrix);
     void handleGifts();
     void addRandomGift(int timePassed);
+    void setIsGift();
     sf::Vector2f& getRandomPos();
     void movePlayer();
     bool checkBoundsCollis(sf::Vector2f& direction);
@@ -69,6 +70,8 @@ private:
     float m_boardHeight;
 
     Timers m_gameTime;       //class that hold all the clocks
+
+    bool m_isGift = false;
 
     std::vector <std::unique_ptr <sf::Vector2f> > m_emptySlots; //save empty positions for the random gifts;
 

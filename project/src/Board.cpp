@@ -78,7 +78,7 @@ void Board::initFrame()
     m_frame.setPosition(m_topLeft);
     m_frame.setOutlineThickness(10.0f);
     m_frame.setOutlineColor(sf::Color::Color(210, 105, 30));
-    m_frame.setFillColor(sf::Color::Color(0, 128, 0));
+    m_frame.setFillColor(sf::Color::Black);
 }
 
 
@@ -185,23 +185,32 @@ void Board::setEmptySlots(std::vector<std::string>& matrix)
 void Board::handleGifts()
 {
     int timePassed = m_gameTime.getTimePassed();
+    
+    for (auto& gift : m_gifts)
+    {
+        if (gift->handleGiftLife())
+            m_isGift = false;
+    }
+
     std::erase_if(m_gifts, [](auto& gift)
         {
             return gift->isDisposed();
         });
 
     addRandomGift(timePassed);
-
 }
 
 void Board::addRandomGift(int timePassed)
 {
-    srand(time(NULL));
+    static int index = 1;
+    srand(index++);
     int randomGift = rand() % 3;
     int randomPos = rand() % m_emptySlots.size();
-
-    if (timePassed % 20 == 0)
+    static int i = 0;
+    if (timePassed % 10 == 0 && timePassed > 0 && !m_isGift)
     {
+        std::cout << "adding a gift!" << i++ << std::endl;
+        m_isGift = true;
         switch (randomGift)
         {
         case 0:
@@ -228,6 +237,11 @@ sf::Vector2f& Board::getRandomPos()
     int index = m_emptySlots.size();
     int randomPos = rand() % index;
     return *m_emptySlots[randomPos];
+}
+
+void Board::setIsGift()
+{
+    m_isGift = false;
 }
 
 void Board::draw(sf::RenderWindow& window)
@@ -370,6 +384,8 @@ void Board::clearData()
     m_moveables.clear();
     m_unmoveables.clear();
     m_gifts.clear();
+    m_emptySlots.clear();
+    m_isGift = false;
     //m_gameTime.restartTimer(); ?
 }
 

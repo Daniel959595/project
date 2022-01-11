@@ -138,7 +138,10 @@ void Controller::loadLevels()
 		m_board.readData(in);
 		m_board.setTimer(true); 
 		if (!run())
+		{
 			index--;
+			std::cout << "starting level again!\n";
+		}
 		m_board.clearData();
 		index++;
 	};

@@ -44,6 +44,7 @@ void Timers::restartTimer()
 {
 	m_timer.restart();
 	m_timerText.setFillColor(sf::Color::Black);
+	m_limitTime = 180;
 }
 
 int Timers::getTimePassed()
