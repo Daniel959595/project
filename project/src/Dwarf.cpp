@@ -1,5 +1,6 @@
 #include <vector>
 #include <stdlib.h>
+#include <iostream>
 
 #include "Dwarf.h"
 #include "King.h"
@@ -18,67 +19,69 @@ void Dwarf::move(sf::Time& deltaTime)
 	m_sprite.move(m_direction * m_speed * deltaTime.asSeconds());
 }
 
-sf::Vector2f& Dwarf::changeDirection()
+void Dwarf::changeDirection()
 {
 	static std::vector <sf::Vector2f> directions { {0,1},{-1,0},
 		                                           {0,-1},{1,0} };
 	int index = rand() % 4;
-	return directions[index];
+	m_direction = directions[index];
 }
 
 
 void Dwarf::handleCollision(GameObj& gameObj)
 {
-	if (&gameObj == this) return;
+	if (&gameObj == this) return; //?
+	moveBack(gameObj);
 	changeDirection();
 	// double dispatch
-	//gameObj.handleCollision(*this);
+	gameObj.handleCollision(*this);
 }
 
 void Dwarf::handleCollision(Wall& gameObj)
 {
-	m_direction = changeDirection();
+	moveBack(gameObj);
+	changeDirection();
 }
 
 void Dwarf::handleCollision(Fire& gameObj)
 {
-	m_direction = changeDirection();
+	changeDirection();
 }
 
 void Dwarf::handleCollision(Ork& gameObj)
 {
-	m_direction = changeDirection();
+	changeDirection();
 }
 
 void Dwarf::handleCollision(Gate& gameObj)
 {
-	m_direction = changeDirection();
+    changeDirection();
 }
 
 void Dwarf::handleCollision(King& gameObj)
 {
-	m_direction = changeDirection();
+	changeDirection();
 
 	gameObj.handleCollision(*this);
 }
 
 void Dwarf::handleCollision(Thief& gameObj)
 {
-	m_direction = changeDirection();
+	changeDirection();
 
 	gameObj.handleCollision(*this);
 }
 
 void Dwarf::handleCollision(Warrior& gameObj)
 {
-	m_direction = changeDirection();
+	changeDirection();
 
 	gameObj.handleCollision(*this);
 }
 
 void Dwarf::handleCollision(Mage& gameObj)
 {
-	m_direction = changeDirection();
+	changeDirection();
 
 	gameObj.handleCollision(*this);
 }

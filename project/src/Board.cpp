@@ -99,26 +99,26 @@ void Board::loadVectors(char letter, float row, float col)
 
     case 'K':
     case 'k': 
-        m_moveables.insert(m_moveables.begin(), std::make_unique <King>(m_figures.getFigure(Figure(0)), location));
+        m_moveables.push_back(std::make_unique <King>(m_figures.getFigure(Figure(0)), location));
         break;
 
     case 'W':
     case 'w':
-        m_moveables.insert(m_moveables.begin(), std::make_unique <Warrior>(m_figures.getFigure(Figure(1)), location));
+        m_moveables.push_back(std::make_unique <Warrior>(m_figures.getFigure(Figure(1)), location));
         break;
 
     case 'M':
     case 'm':
-        m_moveables.insert(m_moveables.begin(), std::make_unique <Mage>(m_figures.getFigure(Figure(2)), location));
+        m_moveables.push_back( std::make_unique <Mage>(m_figures.getFigure(Figure(2)), location));
         break;
 
     case 'T':
     case 't':
-        m_moveables.insert(m_moveables.begin(), std::make_unique <Thief>(m_figures.getFigure(Figure(3)), location));
+        m_moveables.push_back( std::make_unique <Thief>(m_figures.getFigure(Figure(3)), location));
         break;
 
     case '^':
-        m_moveables.push_back(std::make_unique <Dwarf>(m_figures.getFigure(Figure(12)), location));
+        m_dwarf.push_back(std::make_unique <Dwarf>(m_figures.getFigure(Figure(12)), location));
         break;
 
         ///////////////////////////////////m_unmoveables//////////////////////////////
@@ -242,8 +242,7 @@ void Board::addRandomGift(int timePassed)
 
 sf::Vector2f& Board::getRandomPos()
 {
-    int index = m_emptySlots.size();
-    int randomPos = rand() % index;
+    int randomPos = rand() % m_emptySlots.size();
     return *m_emptySlots[randomPos];
 }
 
@@ -271,29 +270,40 @@ void Board::draw(sf::RenderWindow& window)
     {
         index->draw(window);
     }
+
+    for (auto& index : m_dwarf)
+    {
+        index->draw(window);
+    }
 }
 
-void Board::movePlayer()
+void Board::moveObjects()
 {
     sf::Vector2f direction(dirFromKey());
     auto deltaTime = m_moveables[m_playerIndex]->getDeltaTime();
-    if (checkBoundsCollis(direction))
+    sf::Vector2f playerPos = m_moveables[m_playerIndex]->getPos();
+
+    if (checkBoundsCollis(direction, playerPos))
     {
         m_moveables[m_playerIndex]->move(direction, deltaTime);
     }
     
-    for (int dwarf = 4; dwarf < m_moveables.size(); dwarf++)
-        m_moveables[dwarf]->move(deltaTime);
+    for (auto& dwarf : m_dwarf)
+    {
+        sf::Vector2f dwarfPos = dwarf->getPos();
+        if (checkBoundsCollis(dwarf->getDirection(), dwarfPos))
+            dwarf->move(deltaTime);
+        else
+            dwarf->changeDirection();
+    }
 }
 
-bool Board::checkBoundsCollis(sf::Vector2f& direction)
-{
-    sf::Vector2f playerPos = m_moveables[m_playerIndex]->getPos();
-    
-    if ((direction.x < 0 && playerPos.x < m_topLeft.x) ||
-        (direction.y < 0 && playerPos.y < m_topLeft.y) ||
-        (direction.x > 0 && playerPos.x > m_bottomRight.x - OBJ_SIZE) ||
-        (direction.y > 0 && playerPos.y > m_bottomRight.y - OBJ_SIZE))
+bool Board::checkBoundsCollis(sf::Vector2f& direction, sf::Vector2f& ObjPos)
+{    
+    if ((direction.x < 0 && ObjPos.x < m_topLeft.x) ||
+        (direction.y < 0 && ObjPos.y < m_topLeft.y) ||
+        (direction.x > 0 && ObjPos.x > m_bottomRight.x - OBJ_SIZE) ||
+        (direction.y > 0 && ObjPos.y > m_bottomRight.y - OBJ_SIZE))
         return false;
     return true;
 }
@@ -308,6 +318,11 @@ void Board::setPlayer()
 
 bool Board::handleCollisions()
 {
+    for (auto& dwarf : m_dwarf)
+    {
+        checkCollisions(*dwarf);
+    }
+
     for (auto& movable : m_moveables)
     {
         if (checkCollisions(*movable))
@@ -331,9 +346,18 @@ bool Board::checkCollisions(Moveable& obj)
     {
         if (obj.checkCollision(*unmovable))
         {
-            if (typeid(obj) == typeid(King) && typeid(*unmovable) == typeid(Throne))
+            if (typeid(obj) == typeid(King) && typeid(*unmovable) == typeid(Throne))// func!!!!!!!!
                 return true;
             obj.handleCollision(*unmovable);
+        }
+    }
+
+    if (typeid(obj) == typeid(Dwarf))
+    {
+        for (auto& moveable : m_moveables)
+        {
+            if (obj.checkCollision(*moveable))
+                obj.handleCollision(*moveable);
         }
     }
 
@@ -343,9 +367,11 @@ bool Board::checkCollisions(Moveable& obj)
             gift->handleCollision(obj, *this);
     }
 
-    for (int dwarf = 4; dwarf < m_moveables.size(); dwarf++)
-        if (obj.checkCollision(*m_moveables[dwarf]))
-            obj.handleCollision((*m_moveables[dwarf]));
+    for (auto& dwarf : m_dwarf)
+    {
+        if (obj.checkCollision(*dwarf))
+            obj.handleCollision((*dwarf));
+    }
 
     return false;
 }
@@ -355,9 +381,10 @@ void Board::startTime()
     m_gameTime.startGameTime();
 }
 
-void Board::setTimer(bool statement)
+void Board::setTimers(bool statement)
 {
     m_gameTime.setIsTimer(statement);
+    m_moveables[0]->getDeltaTime(); //restart the deltaTime of the moveables. 
 }
 
 
@@ -397,6 +424,7 @@ void Board::clearData()
     m_moveables.clear();
     m_unmoveables.clear();
     m_gifts.clear();
+    m_dwarf.clear();
     m_emptySlots.clear();
     m_isGift = false;
     //m_gameTime.restartTimer(); ?
@@ -414,6 +442,5 @@ void Board::redTime()
 
 void Board::rmvDwarf()
 {
-    //m_dwarf.clear(); ?
-    return;
+    m_dwarf.clear();
 }

@@ -135,7 +135,7 @@ void Controller::loadLevels()
 			exit (0);
 		}
 		m_board.readData(in);
-		m_board.setTimer(true); 
+		m_board.setTimers(true); 
 		if (!run())
 		{
 			index--;
@@ -155,7 +155,7 @@ bool Controller::run()
 		updateGameObjects();
 		updateGifts();
 		if (!handleTime()) return false;
-		if (handleCollisions()) return true; //bool:::win level!
+		if (handleCollisions()) return true; //bool::win level!
 	}
 }
 
@@ -191,8 +191,7 @@ void Controller::handleEvents()
 
 void Controller::updateGameObjects()
 {
-	m_board.movePlayer();
-	//dwrf
+	m_board.moveObjects();
 }
 
 void Controller::updateGifts()

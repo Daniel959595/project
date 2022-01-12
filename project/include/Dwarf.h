@@ -14,17 +14,19 @@ public:
     virtual void handleCollision(Ork& gameObj) override;
     virtual void handleCollision(Gate& gameObj) override;
 
-    void handleCollision(King& gameObj);
-    void handleCollision(Thief& gameObj); 
-    void handleCollision(Mage& gameObj);
-    void handleCollision(Warrior& gameObj);
+            //void handleCollision(Gift& gameObj) {};
+            void handleCollision(King& gameObj);
+            void handleCollision(Thief& gameObj); 
+            void handleCollision(Mage& gameObj);
+            void handleCollision(Warrior& gameObj);
  
     virtual void move(sf::Time& deltaTime) override;
-    sf::Vector2f& changeDirection();
+    sf::Vector2f& getDirection() { return m_direction; }
+    void changeDirection();
 
 private:
     sf::Vector2f m_direction = { 1, 0 };
-    float m_speed = 150.0f;
+    float m_speed = 50.0f;
 
 };
 

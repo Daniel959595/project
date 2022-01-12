@@ -55,6 +55,5 @@ void Thief::handleCollision(Key& gameObj)
 
 void Thief::handleCollision(Dwarf& gameObj)
 {
-	std::cout << "thief and dwarf!\n";
 	moveBack(gameObj);
 }

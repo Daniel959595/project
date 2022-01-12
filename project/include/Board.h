@@ -39,14 +39,14 @@ public:
     void addRandomGift(int timePassed);
     void setIsGift();
     sf::Vector2f& getRandomPos();
-    void movePlayer();
-    bool checkBoundsCollis(sf::Vector2f& direction);
+    void moveObjects();
+    bool checkBoundsCollis(sf::Vector2f& direction, sf::Vector2f& ObjPos);
     void setPlayer();
     bool handleCollisions();
     bool checkCollisions(Moveable& obj);
     bool handleTime();
     void startTime();
-    void setTimer(bool statement);
+    void setTimers(bool statement);
     void teleportCollision();
     void createKey();
     void initFrame();
@@ -79,5 +79,5 @@ private:
     std::vector <std::unique_ptr <Moveable> > m_moveables;
     std::vector <std::unique_ptr <Unmoveable> > m_unmoveables;
     std::vector <std::unique_ptr <Gift> > m_gifts;
-    //std::vector <std::unique_ptr <Dwarf> > m_dwarf;
+    std::vector <std::unique_ptr <Dwarf> > m_dwarf;
 };

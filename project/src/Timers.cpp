@@ -5,12 +5,12 @@ Timers::Timers()
 	m_font.loadFromFile("C:/Windows/Fonts/arial.ttf");
 	m_timeText.setFont(m_font);
 	m_timeText.setCharacterSize(60);
-	m_timeText.setFillColor(sf::Color::Black);
+	m_timeText.setFillColor(sf::Color::Magenta);
 	m_timeText.setPosition(sf::Vector2f(100.0f, 50.0f));
 
 	m_timerText.setFont(m_font);
 	m_timerText.setCharacterSize(60);
-	m_timerText.setFillColor(sf::Color::Black);
+	m_timerText.setFillColor(sf::Color::Magenta);
 	m_timerText.setPosition(sf::Vector2f(100.0f, 150.0f));
 }
 
@@ -32,7 +32,7 @@ bool Timers::handleTimer()
 	int indexSec = static_cast<int>(m_limitTime - m_timer.getElapsedTime().asSeconds()) % 60;
 	m_timerText.setString(std::to_string(indexMin) + ":" + std::to_string(indexSec));
 
-	if (indexMin == 0 && indexSec == 30)
+	if (indexMin == 0 && indexSec <= 30)
 		m_timerText.setFillColor(sf::Color::Red);
 
 	if (indexMin <= 0 && indexSec <= 0)
@@ -43,7 +43,7 @@ bool Timers::handleTimer()
 void Timers::restartTimer()
 {
 	m_timer.restart();
-	m_timerText.setFillColor(sf::Color::Black);
+	//m_timerText.setFillColor(sf::Color::Black);
 	m_limitTime = 180;
 }
 
