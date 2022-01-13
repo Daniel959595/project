@@ -30,8 +30,14 @@ void Dwarf::changeDirection()
 
 void Dwarf::handleCollision(GameObj& gameObj)
 {
-	if (&gameObj == this) return; //?
-	moveBack(gameObj);
+	if (&gameObj == this) return; 
+
+	if (typeid(gameObj) != typeid(King) &&
+		typeid(gameObj) != typeid(Mage) &&
+		typeid(gameObj) != typeid(Thief) &&
+		typeid(gameObj) != typeid(Warrior))
+		moveBack(gameObj);   ///func
+
 	changeDirection();
 	// double dispatch
 	gameObj.handleCollision(*this);

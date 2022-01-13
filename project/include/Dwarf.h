@@ -26,7 +26,7 @@ public:
 
 private:
     sf::Vector2f m_direction = { 1, 0 };
-    float m_speed = 50.0f;
+    float m_speed = 100.0f;
 
 };
 

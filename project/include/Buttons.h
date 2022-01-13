@@ -10,6 +10,7 @@ enum class Button
     ButtonHelp2,
     ButtonExit,
     ButtonExit2,
+    ButtonReturn,
 
 };
 
@@ -28,6 +29,8 @@ private:
     sf::Texture m_ButtonExit;
     sf::Texture m_ButtonExit2;
     sf::Texture m_BackGround;;
+    
+    sf::Texture m_ButtonReturn;;
     
     //more picture nedeed!
 };

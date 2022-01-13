@@ -9,6 +9,8 @@ Buttons::Buttons()
     m_ButtonExit.loadFromFile("ButtonExit.png");
     m_ButtonExit2.loadFromFile("ButtonExit2.png");
     m_BackGround.loadFromFile("BackGround.png");
+
+    m_ButtonReturn.loadFromFile("ButtonReturn.png");
 }
 
 sf::Texture& Buttons::getButton(Button button)
@@ -37,6 +39,10 @@ sf::Texture& Buttons::getButton(Button button)
 
     case Button::ButtonExit2:
         return m_ButtonExit2;
+        break;
+
+    case Button::ButtonReturn:
+        return m_ButtonReturn;
         break;
 
     default:

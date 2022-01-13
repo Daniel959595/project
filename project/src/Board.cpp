@@ -348,7 +348,7 @@ bool Board::checkCollisions(Moveable& obj)
         {
             if (typeid(obj) == typeid(King) && typeid(*unmovable) == typeid(Throne))// func!!!!!!!!
                 return true;
-            obj.handleCollision(*unmovable);
+            obj.handleCollision(*unmovable);//
         }
     }
 

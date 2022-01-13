@@ -5,6 +5,7 @@
 #include "ButtonRun.h"
 #include "ButtonHelp.h"
 #include "ButtonExit.h"
+#include "ButtonReturn.h"
 
 
 
@@ -12,6 +13,9 @@
 Controller::Controller()
 	: m_window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Save the King") , m_backGroundSprite(m_buttonsData.getBackGround())
 {
+	m_helpText.loadFromFile("helpWindow.png");
+	m_helpSprite.setTexture(m_helpText);
+	m_helpSprite.setPosition(0, 0);
 	loadButtons();
 }
 
@@ -69,6 +73,9 @@ void Controller::loadButtons()
 	m_buttons.push_back(std::make_unique <ButtonHelp>(m_buttonsData.getButton(Button(2)), m_buttonsData.getButton(Button(3)), location, ButtonType(1)));
 	location = sf::Vector2f (xPos, i * yPos);
 	m_buttons.push_back(std::make_unique <ButtonExit>(m_buttonsData.getButton(Button(4)), m_buttonsData.getButton(Button(5)), location, ButtonType(2)));
+
+	location = sf::Vector2f(100, 100);
+	m_helpButtons.push_back(std::make_unique <ButtonReturn>(m_buttonsData.getButton(Button(6)), m_buttonsData.getButton(Button(6)), location, ButtonType(6)));
 }
 
 void Controller::drawMenu()
@@ -109,6 +116,7 @@ void Controller::handleButtonClick(ButtonType pressedButton)
 		loadLevels();
 		break;
 	case ButtonType::ButtonHelp:
+		showHelpWindow();
 		break;
 	case ButtonType::ButtonExit:
 		m_window.close();
@@ -119,6 +127,39 @@ void Controller::handleButtonClick(ButtonType pressedButton)
 }
 /// <buttons>
 /////////////////////////////////////////////////////////////
+
+void Controller::showHelpWindow()
+{
+	ButtonType pressedButton;
+
+	while (m_window.isOpen())
+	{
+		m_window.clear();
+		m_window.draw(m_helpSprite);
+		m_helpButtons[0]->draw(m_window);
+		m_window.display();
+
+		if (auto event = sf::Event{}; m_window.waitEvent(event))
+		{
+			sf::Vector2f location;
+			switch (event.type)
+			{
+			case sf::Event::Closed:
+				m_window.close();
+				break;
+
+			case sf::Event::MouseButtonReleased:
+				location = m_window.mapPixelToCoords(
+					{ event.mouseButton.x, event.mouseButton.y });
+				if (m_helpButtons[0]->handleClick(location))
+				{
+					return;
+				}
+				break;
+			}
+		}
+	}	
+}
 
 void Controller::loadLevels()
 {

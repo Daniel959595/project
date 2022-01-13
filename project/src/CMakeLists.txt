@@ -26,6 +26,7 @@ target_sources (${CMAKE_PROJECT_NAME} PRIVATE "main.cpp"
                                               "ButtonExit.cpp"
                                               "ButtonHelp.cpp"
                                               "ButtonRun.cpp"
+                                              "ButtonReturn.cpp"
 
                                               "Gift.cpp"
                                               "GiftRmvDwarf.cpp"

@@ -22,4 +22,6 @@ configure_file ("ButtonHelp.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("ButtonHelp2.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("ButtonExit.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("ButtonExit2.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("helpWindow.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("ButtonReturn.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
