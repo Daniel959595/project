@@ -9,11 +9,11 @@ class Mage : public Moveable
 public:
 	using Moveable::Moveable;
 
-	virtual void handleCollision(GameObj& gameObj) override;
-	virtual void handleCollision(Wall& gameObj) override;
-	virtual void handleCollision(Ork& gameObj) override;
-	virtual void handleCollision(Gate& gameObj) override;
-	virtual void handleCollision(Dwarf& gameObj) override;
+	virtual void handleCollision(GameObj& gameObj, Board& board) override;
+	virtual void handleCollision(Wall& gameObj, Board& board) override;
+	virtual void handleCollision(Ork& gameObj, Board& board) override;
+	virtual void handleCollision(Gate& gameObj, Board& board) override;
+	virtual void handleCollision(Dwarf& gameObj, Board& board) override;
 
 };
 

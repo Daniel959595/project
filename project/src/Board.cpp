@@ -99,58 +99,58 @@ void Board::loadVectors(char letter, float row, float col)
 
     case 'K':
     case 'k': 
-        m_moveables.push_back(std::make_unique <King>(m_figures.getFigure(Figure(0)), location));
+        m_moveables.push_back(std::make_unique <King>(m_Figures.getFigure(Figure(0)), location));
         break;
 
     case 'W':
     case 'w':
-        m_moveables.push_back(std::make_unique <Warrior>(m_figures.getFigure(Figure(1)), location));
+        m_moveables.push_back(std::make_unique <Warrior>(m_Figures.getFigure(Figure(1)), location));
         break;
 
     case 'M':
     case 'm':
-        m_moveables.push_back( std::make_unique <Mage>(m_figures.getFigure(Figure(2)), location));
+        m_moveables.push_back( std::make_unique <Mage>(m_Figures.getFigure(Figure(2)), location));
         break;
 
     case 'T':
     case 't':
-        m_moveables.push_back( std::make_unique <Thief>(m_figures.getFigure(Figure(3)), location));
+        m_moveables.push_back( std::make_unique <Thief>(m_Figures.getFigure(Figure(3)), location));
         break;
 
     case '^':
-        m_dwarf.push_back(std::make_unique <Dwarf>(m_figures.getFigure(Figure(12)), location));
+        m_dwarf.push_back(std::make_unique <Dwarf>(m_Figures.getFigure(Figure(12)), location));
         break;
 
         ///////////////////////////////////m_unmoveables//////////////////////////////
 
     case '!':
-        m_unmoveables.push_back(std::make_unique <Ork>(m_figures.getFigure(Figure(4)), location));
+        m_unmoveables.push_back(std::make_unique <Ork>(m_Figures.getFigure(Figure(4)), location));
         break;
 
     case '=':        
-        m_unmoveables.push_back(std::make_unique <Wall>(m_figures.getFigure(Figure(5)), location));
+        m_unmoveables.push_back(std::make_unique <Wall>(m_Figures.getFigure(Figure(5)), location));
         break;
 
     case '*':       
-        m_unmoveables.push_back(std::make_unique <Fire>(m_figures.getFigure(Figure(6)), location));
+        m_unmoveables.push_back(std::make_unique <Fire>(m_Figures.getFigure(Figure(6)), location));
         break;
 
     case '#':       
-        m_unmoveables.push_back(std::make_unique <Gate>(m_figures.getFigure(Figure(7)), location));
+        m_unmoveables.push_back(std::make_unique <Gate>(m_Figures.getFigure(Figure(7)), location));
         break;
 
     case 'F':      
     case 'f':      
-        m_unmoveables.push_back(std::make_unique <Key>(m_figures.getFigure(Figure(8)), location));
+        m_unmoveables.push_back(std::make_unique <Key>(m_Figures.getFigure(Figure(8)), location));
         break;
 
     case 'X':
     case 'x':
-        m_unmoveables.push_back(std::make_unique <Teleporter>(m_figures.getFigure(Figure(9)), location));
+        m_unmoveables.push_back(std::make_unique <Teleporter>(m_Figures.getFigure(Figure(9)), location));
         break;
 
     case '@':
-        m_unmoveables.push_back(std::make_unique <Throne>(m_figures.getFigure(Figure(10)), location));
+        m_unmoveables.push_back(std::make_unique <Throne>(m_Figures.getFigure(Figure(10)), location));
         break;
 
     default:
@@ -222,19 +222,19 @@ void Board::addRandomGift(int timePassed)
         switch (randomGift)
         {
         case 0:
-            m_gifts.push_back(std::make_unique <GiftAddTime> (m_figures.getFigure(Figure(11)), getRandomPos()));
+            m_gifts.push_back(std::make_unique <GiftAddTime> (m_Figures.getFigure(Figure(11)), getRandomPos()));
             break;
 
         case 1:
-            m_gifts.push_back(std::make_unique <GiftRedTime>(m_figures.getFigure(Figure(11)), getRandomPos()));
+            m_gifts.push_back(std::make_unique <GiftRedTime>(m_Figures.getFigure(Figure(11)), getRandomPos()));
             break;
 
         case 2:
-            m_gifts.push_back(std::make_unique <GiftRmvDwarf>(m_figures.getFigure(Figure(11)), getRandomPos()));
+            m_gifts.push_back(std::make_unique <GiftRmvDwarf>(m_Figures.getFigure(Figure(11)), getRandomPos()));
             break;
 
         default:
-            m_gifts.push_back(std::make_unique <GiftAddTime>(m_figures.getFigure(Figure(11)), getRandomPos()));
+            m_gifts.push_back(std::make_unique <GiftAddTime>(m_Figures.getFigure(Figure(11)), getRandomPos()));
             break;
         }
     }
@@ -348,7 +348,7 @@ bool Board::checkCollisions(Moveable& obj)
         {
             if (typeid(obj) == typeid(King) && typeid(*unmovable) == typeid(Throne))// func!!!!!!!!
                 return true;
-            obj.handleCollision(*unmovable);//
+            obj.handleCollision(*unmovable, *this);//
         }
     }
 
@@ -357,7 +357,7 @@ bool Board::checkCollisions(Moveable& obj)
         for (auto& moveable : m_moveables)
         {
             if (obj.checkCollision(*moveable))
-                obj.handleCollision(*moveable);
+                obj.handleCollision(*moveable, *this);
         }
     }
 
@@ -370,7 +370,7 @@ bool Board::checkCollisions(Moveable& obj)
     for (auto& dwarf : m_dwarf)
     {
         if (obj.checkCollision(*dwarf))
-            obj.handleCollision((*dwarf));
+            obj.handleCollision((*dwarf), *this);
     }
 
     return false;
@@ -415,7 +415,7 @@ void Board::createKey()
     for (auto& unmovable : m_unmoveables)
     {
         if (typeid(*unmovable) == typeid(Ork) && unmovable->isDisposed())//static_cast?
-            m_unmoveables.push_back(std::make_unique <Key>(m_figures.getFigure(Figure(8)), unmovable->getPos()));
+            m_unmoveables.push_back(std::make_unique <Key>(m_Figures.getFigure(Figure(8)), unmovable->getPos()));
     }
 }
 

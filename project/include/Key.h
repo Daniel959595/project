@@ -9,7 +9,7 @@ class Key : public Unmoveable
 public:
 	using Unmoveable::Unmoveable;
 
-	virtual void handleCollision(GameObj& gameObj) override;
-	virtual void handleCollision(Thief& gameObj) override;
+	virtual void handleCollision(GameObj& gameObj, Board& board) override;
+	virtual void handleCollision(Thief& gameObj, Board& board) override;
 
 };

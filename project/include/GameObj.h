@@ -7,6 +7,7 @@
 
 #include "ObjectSounds.h"
 
+class Board;
 class King;
 class Warrior;
 class Mage;
@@ -30,18 +31,18 @@ public:
 	void draw(sf::RenderWindow& window);
 	bool checkCollision(const GameObj& other) const;
 
-	virtual void handleCollision(GameObj& gameObj) {};
-	virtual void handleCollision(Wall& gameObj) {};
-	virtual void handleCollision(Fire& gameObj) {};
-	virtual void handleCollision(Gate& gameObj) {};
-	virtual void handleCollision(Teleporter& gameObj) {};
-	virtual void handleCollision(Ork& gameObj) {};
-	virtual void handleCollision(King& gameObj) {};
-	virtual void handleCollision(Thief& gameObj) {};
-	virtual void handleCollision(Mage& gameObj) {};
-	virtual void handleCollision(Warrior& gameObj) {};
-	virtual void handleCollision(Key& gameObj) {};
-	virtual void handleCollision(Dwarf& gameObj) {};
+	virtual void handleCollision(GameObj& gameObj, Board& board) {};
+	virtual void handleCollision(King& gameObj, Board& board) {};
+	virtual void handleCollision(Thief& gameObj, Board& board) {};
+	virtual void handleCollision(Mage& gameObj, Board& board) {};
+	virtual void handleCollision(Warrior& gameObj, Board& board) {};
+	virtual void handleCollision(Wall& gameObj, Board& board) {};
+	virtual void handleCollision(Fire& gameObj, Board& board) {};
+	virtual void handleCollision(Gate& gameObj, Board& board) {};
+	virtual void handleCollision(Teleporter& gameObj, Board& board) {};
+	virtual void handleCollision(Ork& gameObj, Board& board) {};
+	virtual void handleCollision(Key& gameObj, Board& board) {};
+	virtual void handleCollision(Dwarf& gameObj, Board& board) {};
 
 	float getLeftBounds();
 	float getWidth();
@@ -54,7 +55,7 @@ protected:
 	sf::Sprite m_sprite;
 	sf::Vector2f m_position;
 
-	ObjectSounds m_sounds;
+	//ObjectSounds m_sounds;
 	
 	bool m_isDisposed = false;
 

@@ -7,34 +7,34 @@
 #include "Teleporter.h"
 #include <iostream>
 
-void King::handleCollision(GameObj& gameObj)
+void King::handleCollision(GameObj& gameObj, Board& board)
 {
 	if (&gameObj == this) return;
 	// double dispatch
-	gameObj.handleCollision(*this);
+	gameObj.handleCollision(*this, board);
 }
 
-void King::handleCollision(Wall& gameObj)
+void King::handleCollision(Wall& gameObj, Board& board)
 {
 	moveBack(gameObj);
 }
 
-void King::handleCollision(Fire& gameObj)
+void King::handleCollision(Fire& gameObj, Board& board)
 {
 	moveBack(gameObj);
 }
 
-void King::handleCollision(Ork& gameObj)
+void King::handleCollision(Ork& gameObj, Board& board)
 {
 	moveBack(gameObj);
 }
 
-void King::handleCollision(Gate& gameObj)
+void King::handleCollision(Gate& gameObj, Board& board)
 {
 	moveBack(gameObj);
 }
 
-void King::handleCollision(Teleporter& gameObj)
+void King::handleCollision(Teleporter& gameObj, Board& board)
 {
 	if (this->isTeleported()) return;
 
@@ -43,7 +43,7 @@ void King::handleCollision(Teleporter& gameObj)
 	this->set_isTeleported(true); //unnecessary!
 }
 
-void King::handleCollision(Dwarf& gameObj)
+void King::handleCollision(Dwarf& gameObj, Board& board)
 {
 	//gameObj.handleCollision(*this);
 	moveBack(gameObj);

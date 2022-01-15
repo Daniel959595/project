@@ -12,27 +12,27 @@
 //	gameObj.handleCollision(*this);
 //}
 
-void Gate::handleCollision(King& gameObj)
+void Gate::handleCollision(King& gameObj, Board& board)
 {
-	gameObj.handleCollision(*this);
+	gameObj.handleCollision(*this, board);
 }
 
-void Gate::handleCollision(Mage& gameObj)
+void Gate::handleCollision(Mage& gameObj, Board& board)
 {
-	gameObj.handleCollision(*this);
+	gameObj.handleCollision(*this, board);
 }
 
-void Gate::handleCollision(Warrior& gameObj)
+void Gate::handleCollision(Warrior& gameObj, Board& board)
 {
-	gameObj.handleCollision(*this);
+	gameObj.handleCollision(*this, board);
 }
 
-void Gate::handleCollision(Thief& gameObj)
+void Gate::handleCollision(Thief& gameObj, Board& board)
 {
 	if (gameObj.isHaveKey())
 	{
 		m_isDisposed = true;
 	}
-	gameObj.handleCollision(*this);
+	gameObj.handleCollision(*this, board);
 }
 

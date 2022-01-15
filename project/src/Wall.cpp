@@ -5,30 +5,30 @@
 #include "Thief.h"
 
 
-void Wall::handleCollision(GameObj& gameObj)
+void Wall::handleCollision(GameObj& gameObj, Board& board)
 {
 	if (&gameObj == this) return;
 	// double dispatch
-	gameObj.handleCollision(*this);
+	gameObj.handleCollision(*this, board);
 }
 
-void Wall::handleCollision(King& gameObj)
+void Wall::handleCollision(King& gameObj, Board& board)
 {
-	gameObj.handleCollision(*this);
+	gameObj.handleCollision(*this, board);
 }
 
-void Wall::handleCollision(Mage& gameObj)
+void Wall::handleCollision(Mage& gameObj, Board& board)
 {
-	gameObj.handleCollision(*this);
+	gameObj.handleCollision(*this, board);
 }
 
-void Wall::handleCollision(Warrior& gameObj)
+void Wall::handleCollision(Warrior& gameObj, Board& board)
 {
-	gameObj.handleCollision(*this);
+	gameObj.handleCollision(*this, board);
 }
 
-void Wall::handleCollision(Thief& gameObj)
+void Wall::handleCollision(Thief& gameObj, Board& board)
 {
-	gameObj.handleCollision(*this);
+	gameObj.handleCollision(*this, board);
 }
 

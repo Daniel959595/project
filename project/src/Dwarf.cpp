@@ -28,7 +28,7 @@ void Dwarf::changeDirection()
 }
 
 
-void Dwarf::handleCollision(GameObj& gameObj)
+void Dwarf::handleCollision(GameObj& gameObj, Board& board)
 {
 	if (&gameObj == this) return; 
 
@@ -40,54 +40,54 @@ void Dwarf::handleCollision(GameObj& gameObj)
 
 	changeDirection();
 	// double dispatch
-	gameObj.handleCollision(*this);
+	gameObj.handleCollision(*this, board);
 }
 
-void Dwarf::handleCollision(Wall& gameObj)
+void Dwarf::handleCollision(Wall& gameObj, Board& board)
 {
 	moveBack(gameObj);
 	changeDirection();
 }
 
-void Dwarf::handleCollision(Fire& gameObj)
+void Dwarf::handleCollision(Fire& gameObj, Board& board)
 {
 	changeDirection();
 }
 
-void Dwarf::handleCollision(Ork& gameObj)
+void Dwarf::handleCollision(Ork& gameObj, Board& board)
 {
 	changeDirection();
 }
 
-void Dwarf::handleCollision(Gate& gameObj)
+void Dwarf::handleCollision(Gate& gameObj, Board& board)
 {
     changeDirection();
 }
 
-void Dwarf::handleCollision(King& gameObj)
+void Dwarf::handleCollision(King& gameObj, Board& board)
 {
 	changeDirection();
 
-	gameObj.handleCollision(*this);
+	gameObj.handleCollision(*this, board);
 }
 
-void Dwarf::handleCollision(Thief& gameObj)
+void Dwarf::handleCollision(Thief& gameObj, Board& board)
 {
 	changeDirection();
 
-	gameObj.handleCollision(*this);
+	gameObj.handleCollision(*this, board);
 }
 
-void Dwarf::handleCollision(Warrior& gameObj)
+void Dwarf::handleCollision(Warrior& gameObj, Board& board)
 {
 	changeDirection();
 
-	gameObj.handleCollision(*this);
+	gameObj.handleCollision(*this, board);
 }
 
-void Dwarf::handleCollision(Mage& gameObj)
+void Dwarf::handleCollision(Mage& gameObj, Board& board)
 {
 	changeDirection();
 
-	gameObj.handleCollision(*this);
+	gameObj.handleCollision(*this, board);
 }

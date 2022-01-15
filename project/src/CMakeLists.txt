@@ -10,7 +10,7 @@ target_sources (${CMAKE_PROJECT_NAME} PRIVATE "main.cpp"
                                               "Mage.cpp"
                                               "Thief.cpp"
                                               "Warrior.cpp"
-                                              "figures.cpp"
+                                              "Figures.cpp"
                                               "Dwarf.cpp"
 
                                               "Unmoveable.cpp"

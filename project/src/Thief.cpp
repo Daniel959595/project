@@ -7,29 +7,29 @@
 #include "Dwarf.h"
 
 
-void Thief::handleCollision(GameObj& gameObj)
+void Thief::handleCollision(GameObj& gameObj, Board& board)
 {
 	if (&gameObj == this) return;
 	// double dispatch
-	gameObj.handleCollision(*this);
+	gameObj.handleCollision(*this, board);
 }
 
-void Thief::handleCollision(Wall& gameObj)
+void Thief::handleCollision(Wall& gameObj, Board& board)
 {
 	moveBack(gameObj);
 }
 
-void Thief::handleCollision(Fire& gameObj)
+void Thief::handleCollision(Fire& gameObj, Board& board)
 {
 	moveBack(gameObj);
 }
 
-void Thief::handleCollision(Ork& gameObj)
+void Thief::handleCollision(Ork& gameObj, Board& board)
 {
 	moveBack(gameObj);
 }
 
-void Thief::handleCollision(Gate& gameObj)
+void Thief::handleCollision(Gate& gameObj, Board& board)
 {
 	if (m_isHaveKey)
 	{
@@ -39,7 +39,7 @@ void Thief::handleCollision(Gate& gameObj)
 	moveBack(gameObj);
 }
 
-void Thief::handleCollision(Teleporter& gameObj)
+void Thief::handleCollision(Teleporter& gameObj, Board& board)
 {
 	if (this->isTeleported())
 		return;
@@ -48,12 +48,12 @@ void Thief::handleCollision(Teleporter& gameObj)
 	this->set_isTeleported(true); //unnecessary!
 }
 
-void Thief::handleCollision(Key& gameObj)
+void Thief::handleCollision(Key& gameObj, Board& board)
 {
 	m_isHaveKey = true;
 }
 
-void Thief::handleCollision(Dwarf& gameObj)
+void Thief::handleCollision(Dwarf& gameObj, Board& board)
 {
 	moveBack(gameObj);
 }

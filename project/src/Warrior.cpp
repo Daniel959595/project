@@ -6,29 +6,29 @@
 #include "Teleporter.h"
 
 
-void Warrior::handleCollision(GameObj& gameObj)
+void Warrior::handleCollision(GameObj& gameObj, Board& board)
 {
 	if (&gameObj == this) return;
 	// double dispatch
-	gameObj.handleCollision(*this);
+	gameObj.handleCollision(*this, board);
 }
 
-void Warrior::handleCollision(Wall& gameObj)
+void Warrior::handleCollision(Wall& gameObj, Board& board)
 {
 	moveBack(gameObj);
 }
 
-void Warrior::handleCollision(Fire& gameObj)
+void Warrior::handleCollision(Fire& gameObj, Board& board)
 {
 	moveBack(gameObj);
 }
 
-void Warrior::handleCollision(Gate& gameObj)
+void Warrior::handleCollision(Gate& gameObj, Board& board)
 {
 	moveBack(gameObj);
 }
 
-void Warrior::handleCollision(Teleporter& gameObj)
+void Warrior::handleCollision(Teleporter& gameObj, Board& board)
 {
 	if (this->isTeleported())
 		return;
@@ -37,7 +37,7 @@ void Warrior::handleCollision(Teleporter& gameObj)
 	this->set_isTeleported(true); //unnecessary!
 }
 
-void Warrior::handleCollision(Dwarf& gameObj)
+void Warrior::handleCollision(Dwarf& gameObj, Board& board)
 {
 	moveBack(gameObj);
 }

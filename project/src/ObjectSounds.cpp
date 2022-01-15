@@ -3,7 +3,6 @@
 
 #include <thread>
 
-
 ObjectSounds::ObjectSounds()
 {
 	m_trollRoarSound.loadFromFile("trollRoarSound.wav");

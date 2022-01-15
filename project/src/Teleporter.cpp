@@ -5,31 +5,31 @@
 #include "Thief.h"
 
 
-void Teleporter::handleCollision(GameObj& gameObj)
+void Teleporter::handleCollision(GameObj& gameObj, Board& board)
 {
 	if (&gameObj == this) return;
 	// double dispatch
-	gameObj.handleCollision(*this);
+	gameObj.handleCollision(*this, board);
 }
 
-void Teleporter::handleCollision(King& gameObj)
+void Teleporter::handleCollision(King& gameObj, Board& board)
 {
-	gameObj.handleCollision(*this);
+	gameObj.handleCollision(*this, board);
 }
 
-void Teleporter::handleCollision(Mage& gameObj)
+void Teleporter::handleCollision(Mage& gameObj, Board& board)
 {
 	//gameObj.handleCollision(*this);
 }
 
-void Teleporter::handleCollision(Warrior& gameObj)
+void Teleporter::handleCollision(Warrior& gameObj, Board& board)
 {
-	gameObj.handleCollision(*this);
+	gameObj.handleCollision(*this, board);
 }
 
-void Teleporter::handleCollision(Thief& gameObj)
+void Teleporter::handleCollision(Thief& gameObj, Board& board)
 {
-	gameObj.handleCollision(*this);
+	gameObj.handleCollision(*this, board);
 }
 
 sf::Vector2f Teleporter::getTwinPos()

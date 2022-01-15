@@ -57,7 +57,8 @@ public:
 
 private:
 
-    Figures m_figures;
+    //Figures m_figures;
+    Figures m_Figures;
     int m_playerIndex = 0;
 
     sf::RectangleShape m_frame;

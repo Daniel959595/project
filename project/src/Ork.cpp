@@ -5,31 +5,31 @@
 #include "Thief.h"
 
 
-void Ork::handleCollision(GameObj& gameObj)
+void Ork::handleCollision(GameObj& gameObj, Board& board)
 {
 	if (&gameObj == this) return;
 	// double dispatch
-	gameObj.handleCollision(*this);
+	gameObj.handleCollision(*this, board);
 }
 
-void Ork::handleCollision(King& gameObj)
+void Ork::handleCollision(King& gameObj, Board& board)
 {
-	gameObj.handleCollision(*this);
+	gameObj.handleCollision(*this, board);
 }
 
-void Ork::handleCollision(Mage& gameObj)
+void Ork::handleCollision(Mage& gameObj, Board& board)
 {
-	gameObj.handleCollision(*this);
+	gameObj.handleCollision(*this, board);
 }
 
-void Ork::handleCollision(Warrior& gameObj)
+void Ork::handleCollision(Warrior& gameObj, Board& board)
 {
 	m_isDisposed = true;
 	//gameObj.handleCollision(*this);
 }
 
-void Ork::handleCollision(Thief& gameObj)
+void Ork::handleCollision(Thief& gameObj, Board& board)
 {
-	gameObj.handleCollision(*this);
+	gameObj.handleCollision(*this, board);
 }
 
