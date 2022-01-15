@@ -410,6 +410,11 @@ void Board::teleportCollision()
     m_moveables[m_playerIndex]->set_isTeleported(isOnTeleport);
 }
 
+void Board::activateSounds(Sound sound)
+{
+    m_sounds.activateSound(sound);
+}
+
 void Board::createKey()
 {
     for (auto& unmovable : m_unmoveables)

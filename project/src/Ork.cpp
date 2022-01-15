@@ -1,4 +1,5 @@
 #include "Ork.h"
+#include "Board.h"
 #include "King.h"
 #include "Mage.h"
 #include "Warrior.h"
@@ -15,11 +16,13 @@ void Ork::handleCollision(GameObj& gameObj, Board& board)
 void Ork::handleCollision(King& gameObj, Board& board)
 {
 	gameObj.handleCollision(*this, board);
+	board.activateSounds(Sound::trollRoarSound);
 }
 
 void Ork::handleCollision(Mage& gameObj, Board& board)
 {
 	gameObj.handleCollision(*this, board);
+	board.activateSounds(Sound::trollRoarSound);
 }
 
 void Ork::handleCollision(Warrior& gameObj, Board& board)
@@ -31,5 +34,6 @@ void Ork::handleCollision(Warrior& gameObj, Board& board)
 void Ork::handleCollision(Thief& gameObj, Board& board)
 {
 	gameObj.handleCollision(*this, board);
+	board.activateSounds(Sound::trollRoarSound);
 }
 

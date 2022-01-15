@@ -8,6 +8,8 @@
 
 #include "Timers.h"
 #include "Figures.h"
+#include "ObjectSounds.h"
+
 #include "Moveable.h"
 #include "Unmoveable.h"
 #include "King.h"
@@ -48,6 +50,7 @@ public:
     void startTime();
     void setTimers(bool statement);
     void teleportCollision();
+    void activateSounds(Sound sound);
     void createKey();
     void initFrame();
     void clearData();
@@ -59,6 +62,8 @@ private:
 
     //Figures m_figures;
     Figures m_Figures;
+    ObjectSounds m_sounds;
+
     int m_playerIndex = 0;
 
     sf::RectangleShape m_frame;

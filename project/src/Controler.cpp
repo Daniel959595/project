@@ -170,7 +170,7 @@ void Controller::loadLevels()
 {
 	m_menuMusic.pause();
 	
-	int index = 3; 
+	int index = 1; 
 	Situation situation;
 	m_board.startTime(); 
 	while (m_window.isOpen())

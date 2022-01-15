@@ -14,7 +14,9 @@ ObjectSounds::ObjectSounds()
 
 void ObjectSounds::activateSound(Sound soundType)
 {
-	std::cout << "sound!\n";
+	if (sound.getStatus() == sf::Sound::Playing)
+		return;
+
 	switch (soundType)
 	{
 	case Sound::doorOpenSound:
