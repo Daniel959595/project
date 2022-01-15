@@ -194,17 +194,9 @@ void Controller::loadLevels()
 			break;
 		case Situation::levelFailed:
 			break;
-		case Situation::gameFinished:
-			return;
-			break;
 		default:
 			break;
 		}
-		/*if (!run())
-		{
-			index--;
-			std::cout << "starting level again!\n";
-		}*/
 		m_board.clearData();
 	};
 }

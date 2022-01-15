@@ -5,6 +5,7 @@
 #include <memory>
 #include <fstream>
 #include <typeinfo>
+#include <string.h>
 
 #include "Timers.h"
 #include "Figures.h"
@@ -33,6 +34,7 @@ class Board
 public:
     Board();
     void draw(sf::RenderWindow& window);
+    void drawInfo(sf::RenderWindow& window);
     void readData(std::ifstream& in);
     void loadVectors(char letter, float row, float col);
     void setTeleportTwins();
@@ -44,6 +46,7 @@ public:
     void moveObjects();
     bool checkBoundsCollis(sf::Vector2f& direction, sf::Vector2f& ObjPos);
     void setPlayer();
+    std::string getPlayerName();
     bool handleCollisions();
     bool checkCollisions(Moveable& obj);
     bool handleTime();
@@ -60,15 +63,17 @@ public:
 
 private:
 
-    //Figures m_figures;
     Figures m_Figures;
     ObjectSounds m_sounds;
-
-    int m_playerIndex = 0;
+    Timers m_gameTime;       //class that hold all the clocks
 
     sf::RectangleShape m_frame;
     sf::Texture backGround;
     sf::Sprite m_gameBackGround;
+
+    //sf::Sprite m_midBackGround;
+    sf::Font m_infoFont;
+    sf::Text m_infoText;
 
     sf::Vector2f m_topLeft;
     sf::Vector2f m_bottomRight;
@@ -76,7 +81,7 @@ private:
     float m_boardWidth;
     float m_boardHeight;
 
-    Timers m_gameTime;       //class that hold all the clocks
+    int m_playerIndex = 0;
 
     bool m_isGift = false;
 

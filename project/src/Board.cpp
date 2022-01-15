@@ -16,6 +16,12 @@ Board::Board()
 {
     backGround.loadFromFile("BackGround2.png");
     m_gameBackGround.setTexture(backGround);
+
+    m_infoFont.loadFromFile("C:/Windows/Fonts/arial.ttf");
+    m_infoText.setFont(m_infoFont);
+    m_infoText.setCharacterSize(40);
+    m_infoText.setFillColor(sf::Color::Red);
+    m_infoText.setPosition(100, 300);
 }
 
 namespace
@@ -109,12 +115,12 @@ void Board::loadVectors(char letter, float row, float col)
 
     case 'M':
     case 'm':
-        m_moveables.push_back( std::make_unique <Mage>(m_Figures.getFigure(Figure(2)), location));
+        m_moveables.push_back(std::make_unique <Mage>(m_Figures.getFigure(Figure(2)), location));
         break;
 
     case 'T':
     case 't':
-        m_moveables.push_back( std::make_unique <Thief>(m_Figures.getFigure(Figure(3)), location));
+        m_moveables.push_back(std::make_unique <Thief>(m_Figures.getFigure(Figure(3)), location));
         break;
 
     case '^':
@@ -255,7 +261,7 @@ void Board::draw(sf::RenderWindow& window)
 {
     window.draw(m_gameBackGround);
     window.draw(m_frame);
-    m_gameTime.draw(window);
+    drawInfo(window);
     for (auto &index : m_moveables)
     {
         index->draw(window);
@@ -275,6 +281,25 @@ void Board::draw(sf::RenderWindow& window)
     {
         index->draw(window);
     }
+}
+
+void Board::drawInfo(sf::RenderWindow& window)
+{
+    m_gameTime.draw(window);
+    m_infoText.setString("cutrent player is: " + getPlayerName());
+    window.draw(m_infoText);
+}
+
+std::string Board::getPlayerName()
+{
+    if (typeid(*m_moveables[m_playerIndex]) == typeid(King))
+        return std::string("king");
+    else if (typeid(*m_moveables[m_playerIndex]) == typeid(Warrior))
+        return std::string("Warrior");
+    else if (typeid(*m_moveables[m_playerIndex]) == typeid(Mage))
+        return std::string("Mage");
+    else if (typeid(*m_moveables[m_playerIndex]) == typeid(Thief))
+        return std::string("Thief");
 }
 
 void Board::moveObjects()
