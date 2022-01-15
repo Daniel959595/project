@@ -5,6 +5,8 @@
 #include <vector>
 #include <iostream>
 
+#include "ObjectSounds.h"
+
 class King;
 class Warrior;
 class Mage;
@@ -52,6 +54,8 @@ protected:
 	sf::Sprite m_sprite;
 	sf::Vector2f m_position;
 
+	ObjectSounds m_sounds;
+	
 	bool m_isDisposed = false;
 
 };

@@ -25,3 +25,12 @@ configure_file ("ButtonExit2.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("helpWindow.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("ButtonReturn.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
+configure_file ("menuMusic.wav" ${CMAKE_BINARY_DIR} COPYONLY)
+
+configure_file ("doorOpenSound.wav" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("trollRoarSound.wav" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("knockSound.wav" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("magicSound.wav" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("teleportSound.wav" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("buttonSound.wav" ${CMAKE_BINARY_DIR} COPYONLY)
+

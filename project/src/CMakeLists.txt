@@ -2,8 +2,9 @@ target_sources (${CMAKE_PROJECT_NAME} PRIVATE "main.cpp"
                                               "Controler.cpp"
                                               "Board.cpp"
                                               "Timers.cpp"
+                                              "ObjectSounds.cpp"
+                                             
                                               "GameObj.cpp"
-
                                               "Moveable.cpp"
                                               "king.cpp"
                                               "Mage.cpp"

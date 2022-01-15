@@ -13,18 +13,23 @@
 Controller::Controller()
 	: m_window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Save the King") , m_backGroundSprite(m_buttonsData.getBackGround())
 {
+	m_window.setFramerateLimit(60);
 	m_helpText.loadFromFile("helpWindow.png");
 	m_helpSprite.setTexture(m_helpText);
 	m_helpSprite.setPosition(0, 0);
 	loadButtons();
+
+	m_menuMusic.openFromFile("menuMusic.wav");
+	m_menuMusic.setLoop(true);
 }
 
 void Controller::menuAndRun()
 {
 	ButtonType pressedButton;
-
 	while (m_window.isOpen())
 	{
+		if (m_menuMusic.getStatus() != sf::Music::Playing)
+			m_menuMusic.play();
 		m_window.clear();
 		drawMenu();
 		m_window.display();
@@ -163,7 +168,10 @@ void Controller::showHelpWindow()
 
 void Controller::loadLevels()
 {
-	int index = 1;
+	m_menuMusic.pause();
+	
+	int index = 3; 
+	Situation situation;
 	m_board.startTime(); 
 	while (m_window.isOpen())
 	{
@@ -173,21 +181,35 @@ void Controller::loadLevels()
 		if (!in.is_open())
 		{
 			std::cout << "end!\n";
-			exit (0);
+			situation = Situation::gameFinished;
+			return;
 		}
 		m_board.readData(in);
 		m_board.setTimers(true); 
-		if (!run())
+		situation = run();
+		switch (situation)
+		{
+		case Situation::levelSucceed:
+			index++;
+			break;
+		case Situation::levelFailed:
+			break;
+		case Situation::gameFinished:
+			return;
+			break;
+		default:
+			break;
+		}
+		/*if (!run())
 		{
 			index--;
 			std::cout << "starting level again!\n";
-		}
+		}*/
 		m_board.clearData();
-		index++;
 	};
 }
 
-bool Controller::run()
+Situation Controller::run()
 {
 	while (m_window.isOpen())
 	{
@@ -195,8 +217,8 @@ bool Controller::run()
 		handleEvents();
 		updateGameObjects();
 		updateGifts();
-		if (!handleTime()) return false;
-		if (handleCollisions()) return true; //bool::win level!
+		if (!handleTime()) return Situation::levelFailed;
+		if (handleCollisions()) return Situation::levelSucceed;
 	}
 }
 

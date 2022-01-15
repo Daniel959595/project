@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <vector>
 #include "Board.h"
 #include "Buttons.h"
@@ -8,6 +9,13 @@
 
 const float WINDOW_WIDTH = 1920.0f;
 const float WINDOW_HEIGHT = 1080.0f;
+
+enum class Situation
+{
+	levelSucceed = 0,
+	levelFailed,
+	gameFinished,
+};
 
 class Controller
 {
@@ -30,13 +38,15 @@ private:
 
 	sf::Sprite m_backGroundSprite;
 
+	sf::Music m_menuMusic;
+
 	void loadButtons();
 	void drawMenu();
 	bool handleButtons(sf::Vector2f& location);
 	void handleButtonClick(ButtonType pressedButton);
 	void showHelpWindow();
 	void loadLevels();
-	bool run();  //return false if the player fails or pressed es
+	Situation run();  //return false if the player fails or pressed es
 	void draw();
 	void handleEvents();
 	void updateGameObjects();

@@ -21,7 +21,7 @@ void Fire::handleCollision(King& gameObj)
 void Fire::handleCollision(Mage& gameObj)
 {
 	m_isDisposed = true;
-//	gameObj.handleCollision(*this);
+	m_sounds.activateSound(Sound(3));
 }
 
 void Fire::handleCollision(Warrior& gameObj)
