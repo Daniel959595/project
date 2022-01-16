@@ -1,6 +1,7 @@
 #include "GameObj.h"
 #include "Wall.h"
 #include "King.h"
+#include "Teleporter.h"
 #include <iostream>
 
 GameObj::GameObj(const sf::Texture& texture, const sf::Vector2f& position)

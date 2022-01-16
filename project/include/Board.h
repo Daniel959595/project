@@ -42,6 +42,8 @@ public:
     void handleGifts();
     void addRandomGift(int timePassed);
     void setIsGift();
+    void setIsWin();
+    void setIsKey(bool statement);
     sf::Vector2f& getRandomPos();
     void moveObjects();
     bool checkBoundsCollis(sf::Vector2f& direction, sf::Vector2f& ObjPos);
@@ -52,9 +54,10 @@ public:
     bool handleTime();
     void startTime();
     void setTimers(bool statement);
-    void teleportCollision();
+    void resetTeleportCollision();
     void activateSounds(Sound sound);
-    void createKey();
+    //void createKey();
+    void createKey(GameObj& obj);
     void initFrame();
     void clearData();
     void addTime();
@@ -84,6 +87,8 @@ private:
     int m_playerIndex = 0;
 
     bool m_isGift = false;
+    bool m_isWin = false;
+    bool m_isKey = false;
 
     std::vector <std::unique_ptr <sf::Vector2f> > m_emptySlots; //save empty positions for the random gifts;
 

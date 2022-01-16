@@ -16,7 +16,7 @@ void Teleporter::handleCollision(GameObj& gameObj, Board& board)
 void Teleporter::handleCollision(King& gameObj, Board& board)
 {
 	gameObj.handleCollision(*this, board);
-	board.activateSounds(Sound::teleportSound);
+	//board.activateSounds(Sound::teleportSound);
 
 }
 
@@ -28,13 +28,13 @@ void Teleporter::handleCollision(Mage& gameObj, Board& board)
 void Teleporter::handleCollision(Warrior& gameObj, Board& board)
 {
 	gameObj.handleCollision(*this, board);
-	board.activateSounds(Sound::teleportSound);
+	//board.activateSounds(Sound::teleportSound);
 }
 
 void Teleporter::handleCollision(Thief& gameObj, Board& board)
 {
 	gameObj.handleCollision(*this, board);
-	board.activateSounds(Sound::teleportSound);
+	//board.activateSounds(Sound::teleportSound);
 }
 
 sf::Vector2f Teleporter::getTwinPos()

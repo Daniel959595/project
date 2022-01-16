@@ -28,6 +28,7 @@ void Ork::handleCollision(Mage& gameObj, Board& board)
 void Ork::handleCollision(Warrior& gameObj, Board& board)
 {
 	m_isDisposed = true;
+	board.createKey(*this);
 	//gameObj.handleCollision(*this);
 }
 

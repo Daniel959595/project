@@ -1,4 +1,5 @@
 #include "Warrior.h"
+#include "Board.h"
 #include "Wall.h"
 #include "Fire.h"
 #include "Gate.h"
@@ -35,6 +36,7 @@ void Warrior::handleCollision(Teleporter& gameObj, Board& board)
 	this->m_position = gameObj.getTwinPos();
 	this->m_sprite.setPosition(m_position);
 	this->set_isTeleported(true); //unnecessary!
+	board.activateSounds(Sound::teleportSound);
 }
 
 void Warrior::handleCollision(Dwarf& gameObj, Board& board)

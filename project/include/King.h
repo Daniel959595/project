@@ -10,6 +10,8 @@ class King : public Moveable
 public:
 	using Moveable::Moveable;
 
+    //virtual bool checkCollision(const GameObj& other) ;
+
     virtual void handleCollision(GameObj& gameObj, Board& board) override;
     virtual void handleCollision(Wall& gameObj, Board& board) override;
     virtual void handleCollision(Fire& gameObj, Board& board) override;
@@ -17,6 +19,7 @@ public:
     virtual void handleCollision(Gate& gameObj, Board& board) override;
     virtual void handleCollision(Teleporter& gameObj, Board& board) override;
     virtual void handleCollision(Dwarf& gameObj, Board& board) override;
+    virtual void handleCollision(Throne& gameObj, Board& board) override;
 
     bool isReachThrone() { return m_reachThrone; }
 private:

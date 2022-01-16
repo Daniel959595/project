@@ -118,7 +118,7 @@ void Controller::handleButtonClick(ButtonType pressedButton)
 	switch (pressedButton)
 	{
 	case ButtonType::ButtonRun:
-		loadLevels();
+		loadAndRun();
 		break;
 	case ButtonType::ButtonHelp:
 		showHelpWindow();
@@ -166,7 +166,7 @@ void Controller::showHelpWindow()
 	}	
 }
 
-void Controller::loadLevels()
+void Controller::loadAndRun()
 {
 	m_menuMusic.pause();
 	

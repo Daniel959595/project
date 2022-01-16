@@ -45,7 +45,7 @@ private:
 	bool handleButtons(sf::Vector2f& location);
 	void handleButtonClick(ButtonType pressedButton);
 	void showHelpWindow();
-	void loadLevels();
+	void loadAndRun();
 	Situation run();  //return false if the player fails or pressed es
 	void draw();
 	void handleEvents();

@@ -257,6 +257,16 @@ void Board::setIsGift()
     m_isGift = false;
 }
 
+void Board::setIsWin()
+{
+    m_isWin = !m_isWin;
+}
+
+void Board::setIsKey(bool statement)
+{
+    m_isKey = statement;
+}
+
 void Board::draw(sf::RenderWindow& window)
 {
     window.draw(m_gameBackGround);
@@ -286,20 +296,22 @@ void Board::draw(sf::RenderWindow& window)
 void Board::drawInfo(sf::RenderWindow& window)
 {
     m_gameTime.draw(window);
-    m_infoText.setString("cutrent player is: " + getPlayerName());
+
+    std::string str(m_isKey ? "\nyou have a key." : "\nyou don't have a key.");
+    m_infoText.setString("cutrent player is: " + getPlayerName() + str);
     window.draw(m_infoText);
 }
 
 std::string Board::getPlayerName()
 {
     if (typeid(*m_moveables[m_playerIndex]) == typeid(King))
-        return std::string("king");
+        return std::string("king.");
     else if (typeid(*m_moveables[m_playerIndex]) == typeid(Warrior))
-        return std::string("Warrior");
+        return std::string("Warrior.");
     else if (typeid(*m_moveables[m_playerIndex]) == typeid(Mage))
-        return std::string("Mage");
+        return std::string("Mage.");
     else if (typeid(*m_moveables[m_playerIndex]) == typeid(Thief))
-        return std::string("Thief");
+        return std::string("Thief.");
 }
 
 void Board::moveObjects()
@@ -354,8 +366,8 @@ bool Board::handleCollisions()
             return true;
     }
     
-    teleportCollision();
-    createKey();
+    resetTeleportCollision();
+    //createKey();
 
     std::erase_if(m_unmoveables, [](auto& unmovable)
         {
@@ -371,8 +383,8 @@ bool Board::checkCollisions(Moveable& obj)
     {
         if (obj.checkCollision(*unmovable))
         {
-            if (typeid(obj) == typeid(King) && typeid(*unmovable) == typeid(Throne))// func!!!!!!!!
-                return true;
+            //if (typeid(obj) == typeid(King) && typeid(*unmovable) == typeid(Throne))// func!!!!!!!!
+            //    return true;
             obj.handleCollision(*unmovable, *this);//
         }
     }
@@ -398,6 +410,8 @@ bool Board::checkCollisions(Moveable& obj)
             obj.handleCollision((*dwarf), *this);
     }
 
+    if (m_isWin)
+        return true;
     return false;
 }
 
@@ -418,7 +432,7 @@ bool Board::handleTime()
     return m_gameTime.handleTime();
 }
 
-void Board::teleportCollision()
+void Board::resetTeleportCollision()
 {
     bool isOnTeleport = false;
     for (auto& unmovable : m_unmoveables)
@@ -440,13 +454,17 @@ void Board::activateSounds(Sound sound)
     m_sounds.activateSound(sound);
 }
 
-void Board::createKey()
+//void Board::createKey()
+//{
+//    for (auto& unmovable : m_unmoveables)
+//    {
+//        if (typeid(*unmovable) == typeid(Ork) && unmovable->isDisposed())//static_cast?
+//            m_unmoveables.push_back(std::make_unique <Key>(m_Figures.getFigure(Figure(8)), unmovable->getPos()));
+//    }
+//}
+void Board::createKey(GameObj& obj)
 {
-    for (auto& unmovable : m_unmoveables)
-    {
-        if (typeid(*unmovable) == typeid(Ork) && unmovable->isDisposed())//static_cast?
-            m_unmoveables.push_back(std::make_unique <Key>(m_Figures.getFigure(Figure(8)), unmovable->getPos()));
-    }
+    m_unmoveables.push_back(std::make_unique <Key>(m_Figures.getFigure(Figure(8)), obj.getPos()));
 }
 
 void Board::clearData()
@@ -457,6 +475,7 @@ void Board::clearData()
     m_dwarf.clear();
     m_emptySlots.clear();
     m_isGift = false;
+    setIsWin();
     //m_gameTime.restartTimer(); ?
 }
 

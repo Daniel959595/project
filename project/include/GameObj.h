@@ -43,6 +43,7 @@ public:
 	virtual void handleCollision(Ork& gameObj, Board& board) {};
 	virtual void handleCollision(Key& gameObj, Board& board) {};
 	virtual void handleCollision(Dwarf& gameObj, Board& board) {};
+	virtual void handleCollision(Throne& gameObj, Board& board) {};
 
 	float getLeftBounds();
 	float getWidth();

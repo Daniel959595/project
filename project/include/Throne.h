@@ -8,5 +8,6 @@ class Throne : public Unmoveable
 {
 public:
 	using Unmoveable::Unmoveable;
+	virtual void handleCollision(King& gameObj, Board& board) override;
 
 };
