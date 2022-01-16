@@ -13,10 +13,11 @@ void GiftRmvDwarf::activateGift(Board& board)
 void GiftRmvDwarf::handleCollision(GameObj& gameObj, Board& board)
 {
 	//	gameObj.handleCollision(*this);
-	m_isDisposed = true;
+	/*m_isDisposed = true;
 	board.setIsGift();
 	activateGift(board);
-	return;
+	return;*/
+	gameObj.handleCollision(*this, board);
 }
 
 //void Gift::handleGiftLife()

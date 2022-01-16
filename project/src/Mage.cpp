@@ -4,6 +4,7 @@
 #include "Ork.h"
 #include "Gate.h"
 #include "Dwarf.h"
+#include "Gift.h"
 
 
 void Mage::handleCollision(GameObj& gameObj, Board& board)
@@ -31,4 +32,9 @@ void Mage::handleCollision(Gate& gameObj, Board& board)
 void Mage::handleCollision(Dwarf& gameObj, Board& board)
 {
 	moveBack(gameObj);
+}
+
+void Mage::handleCollision(Gift& gameObj, Board& board)
+{
+	gameObj.handleCollision(*this, board);
 }

@@ -191,6 +191,7 @@ void Controller::loadAndRun()
 		{
 		case Situation::levelSucceed:
 			index++;
+			m_board.setIsWin();
 			break;
 		case Situation::levelFailed:
 			break;

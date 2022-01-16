@@ -35,6 +35,7 @@ public:
     Board();
     void draw(sf::RenderWindow& window);
     void drawInfo(sf::RenderWindow& window);
+    void drawCurrentPlayer(sf::RenderWindow& window);
     void readData(std::ifstream& in);
     void loadVectors(char letter, float row, float col);
     void setTeleportTwins();
@@ -48,7 +49,6 @@ public:
     void moveObjects();
     bool checkBoundsCollis(sf::Vector2f& direction, sf::Vector2f& ObjPos);
     void setPlayer();
-    std::string getPlayerName();
     bool handleCollisions();
     bool checkCollisions(Moveable& obj);
     bool handleTime();
@@ -56,7 +56,6 @@ public:
     void setTimers(bool statement);
     void resetTeleportCollision();
     void activateSounds(Sound sound);
-    //void createKey();
     void createKey(GameObj& obj);
     void initFrame();
     void clearData();
@@ -74,15 +73,15 @@ private:
     sf::Texture backGround;
     sf::Sprite m_gameBackGround;
 
-    //sf::Sprite m_midBackGround;
     sf::Font m_infoFont;
     sf::Text m_infoText;
+    sf::CircleShape m_currentPlayer;
 
     sf::Vector2f m_topLeft;
     sf::Vector2f m_bottomRight;
 
-    float m_boardWidth;
-    float m_boardHeight;
+    float m_boardWidth = 0;
+    float m_boardHeight = 0;
 
     int m_playerIndex = 0;
 
@@ -90,8 +89,7 @@ private:
     bool m_isWin = false;
     bool m_isKey = false;
 
-    std::vector <std::unique_ptr <sf::Vector2f> > m_emptySlots; //save empty positions for the random gifts;
-
+    std::vector <std::unique_ptr <sf::Vector2f> > m_emptySlots;
     std::vector <std::unique_ptr <Moveable> > m_moveables;
     std::vector <std::unique_ptr <Unmoveable> > m_unmoveables;
     std::vector <std::unique_ptr <Gift> > m_gifts;

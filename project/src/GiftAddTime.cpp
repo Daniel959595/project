@@ -12,18 +12,11 @@ void GiftAddTime::activateGift(Board& board)
 
 void GiftAddTime::handleCollision(GameObj& gameObj, Board& board)
 {
-	//	gameObj.handleCollision(*this);
-	m_isDisposed = true;
+	/*m_isDisposed = true;
 	board.setIsGift();
-	activateGift(board);
-	return;
+	activateGift(board);*/
+	gameObj.handleCollision(*this, board);
 }
-
-//void Gift::handleGiftLife()
-//{
-//	if (m_lifetime - m_clock.getElapsedTime().asSeconds() <= 0)
-//		m_isDisposed = true;
-//}
 
 void GiftAddTime::handleCollision(King& gameObj, Board& board)
 {

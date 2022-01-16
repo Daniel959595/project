@@ -20,6 +20,7 @@ public:
     virtual void handleCollision(Teleporter& gameObj, Board& board) override;
     virtual void handleCollision(Dwarf& gameObj, Board& board) override;
     virtual void handleCollision(Throne& gameObj, Board& board) override;
+    virtual void handleCollision(Gift& gameObj, Board& board) override;
 
     bool isReachThrone() { return m_reachThrone; }
 private:

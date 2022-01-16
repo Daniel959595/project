@@ -6,6 +6,7 @@
 #include "Gate.h"
 #include "Teleporter.h"
 #include "Dwarf.h"
+#include "Gift.h"
 
 
 void Thief::handleCollision(GameObj& gameObj, Board& board)
@@ -60,4 +61,9 @@ void Thief::handleCollision(Key& gameObj, Board& board)
 void Thief::handleCollision(Dwarf& gameObj, Board& board)
 {
 	moveBack(gameObj);
+}
+
+void Thief::handleCollision(Gift& gameObj, Board& board)
+{
+	gameObj.handleCollision(*this, board);
 }

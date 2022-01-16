@@ -5,14 +5,8 @@
 #include "Ork.h"
 #include "Gate.h"
 #include "Dwarf.h"
-//#include "Teleporter.h"
-#include <iostream>
+#include "Gift.h"
 
-//bool King::checkCollision(const GameObj& other) 
-//{
-//	if (typeid(other) == typeid(Teleporter))
-//		this->Moveable::set_isTeleported(true);
-//}
 
 void King::handleCollision(GameObj& gameObj, Board& board)
 {
@@ -53,7 +47,6 @@ void King::handleCollision(Teleporter& gameObj, Board& board)
 
 void King::handleCollision(Dwarf& gameObj, Board& board)
 {
-	//gameObj.handleCollision(*this);
 	moveBack(gameObj);
 }
 
@@ -62,5 +55,8 @@ void King::handleCollision(Throne& gameObj, Board& board)
 	board.setIsWin();
 }
 
-
+void King::handleCollision(Gift& gameObj, Board& board)
+{
+	gameObj.handleCollision(*this, board);
+}
 

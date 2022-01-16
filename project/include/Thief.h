@@ -17,6 +17,7 @@ public:
 	virtual void handleCollision(Teleporter& gameObj, Board& board) override;
 	virtual void handleCollision(Key& gameObj, Board& board) override;
 	virtual void handleCollision(Dwarf& gameObj, Board& board) override;
+	virtual void handleCollision(Gift& gameObj, Board& board) override;
 
 
 	bool isHaveKey() const { return m_isHaveKey; }

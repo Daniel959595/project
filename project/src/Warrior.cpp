@@ -5,6 +5,7 @@
 #include "Gate.h"
 #include "Dwarf.h"
 #include "Teleporter.h"
+#include "Gift.h"
 
 
 void Warrior::handleCollision(GameObj& gameObj, Board& board)
@@ -42,4 +43,9 @@ void Warrior::handleCollision(Teleporter& gameObj, Board& board)
 void Warrior::handleCollision(Dwarf& gameObj, Board& board)
 {
 	moveBack(gameObj);
+}
+
+void Warrior::handleCollision(Gift& gameObj, Board& board)
+{
+	gameObj.handleCollision(*this, board);
 }

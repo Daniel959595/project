@@ -19,9 +19,16 @@ Board::Board()
 
     m_infoFont.loadFromFile("C:/Windows/Fonts/arial.ttf");
     m_infoText.setFont(m_infoFont);
-    m_infoText.setCharacterSize(40);
-    m_infoText.setFillColor(sf::Color::Red);
-    m_infoText.setPosition(100, 300);
+    m_infoText.setCharacterSize(50);
+    m_infoText.setFillColor(sf::Color::Black);
+    m_infoText.setOutlineThickness(4);
+    m_infoText.setOutlineColor(sf::Color::Red);
+    m_infoText.setPosition(80, 400);
+
+    m_currentPlayer.setRadius(OBJ_SIZE / 2);
+    m_currentPlayer.setFillColor(sf::Color::Transparent);
+    m_currentPlayer.setOutlineThickness(3);
+    m_currentPlayer.setOutlineColor(sf::Color::Red);
 }
 
 namespace
@@ -220,10 +227,8 @@ void Board::addRandomGift(int timePassed)
     srand(index++);
     int randomGift = rand() % 3;
     int randomPos = rand() % m_emptySlots.size();
-    static int i = 0;
     if (timePassed % 10 == 0 && timePassed > 0 && !m_isGift)
     {
-        std::cout << "adding a gift!" << i++ << std::endl;
         m_isGift = true;
         switch (randomGift)
         {
@@ -240,7 +245,6 @@ void Board::addRandomGift(int timePassed)
             break;
 
         default:
-            m_gifts.push_back(std::make_unique <GiftAddTime>(m_Figures.getFigure(Figure(11)), getRandomPos()));
             break;
         }
     }
@@ -297,21 +301,17 @@ void Board::drawInfo(sf::RenderWindow& window)
 {
     m_gameTime.draw(window);
 
-    std::string str(m_isKey ? "\nyou have a key." : "\nyou don't have a key.");
-    m_infoText.setString("cutrent player is: " + getPlayerName() + str);
+    std::string str(m_isKey ? "the thief\nhas a key." : "the thief\ndosen't have a key.");
+    m_infoText.setString(str);
     window.draw(m_infoText);
+
+    drawCurrentPlayer(window);
 }
 
-std::string Board::getPlayerName()
+void Board::drawCurrentPlayer(sf::RenderWindow& window)
 {
-    if (typeid(*m_moveables[m_playerIndex]) == typeid(King))
-        return std::string("king.");
-    else if (typeid(*m_moveables[m_playerIndex]) == typeid(Warrior))
-        return std::string("Warrior.");
-    else if (typeid(*m_moveables[m_playerIndex]) == typeid(Mage))
-        return std::string("Mage.");
-    else if (typeid(*m_moveables[m_playerIndex]) == typeid(Thief))
-        return std::string("Thief.");
+    m_currentPlayer.setPosition(m_moveables[m_playerIndex]->getPos());
+    window.draw(m_currentPlayer);
 }
 
 void Board::moveObjects()
@@ -367,7 +367,6 @@ bool Board::handleCollisions()
     }
     
     resetTeleportCollision();
-    //createKey();
 
     std::erase_if(m_unmoveables, [](auto& unmovable)
         {
@@ -383,9 +382,7 @@ bool Board::checkCollisions(Moveable& obj)
     {
         if (obj.checkCollision(*unmovable))
         {
-            //if (typeid(obj) == typeid(King) && typeid(*unmovable) == typeid(Throne))// func!!!!!!!!
-            //    return true;
-            obj.handleCollision(*unmovable, *this);//
+            obj.handleCollision(*unmovable, *this);
         }
     }
 
@@ -454,14 +451,6 @@ void Board::activateSounds(Sound sound)
     m_sounds.activateSound(sound);
 }
 
-//void Board::createKey()
-//{
-//    for (auto& unmovable : m_unmoveables)
-//    {
-//        if (typeid(*unmovable) == typeid(Ork) && unmovable->isDisposed())//static_cast?
-//            m_unmoveables.push_back(std::make_unique <Key>(m_Figures.getFigure(Figure(8)), unmovable->getPos()));
-//    }
-//}
 void Board::createKey(GameObj& obj)
 {
     m_unmoveables.push_back(std::make_unique <Key>(m_Figures.getFigure(Figure(8)), obj.getPos()));
@@ -475,8 +464,6 @@ void Board::clearData()
     m_dwarf.clear();
     m_emptySlots.clear();
     m_isGift = false;
-    setIsWin();
-    //m_gameTime.restartTimer(); ?
 }
 
 void Board::addTime()

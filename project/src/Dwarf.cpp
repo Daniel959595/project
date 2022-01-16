@@ -1,6 +1,5 @@
 #include <vector>
 #include <stdlib.h>
-#include <iostream>
 
 #include "Dwarf.h"
 #include "King.h"
@@ -12,6 +11,7 @@
 #include "Ork.h"
 #include "Gate.h"
 #include "Teleporter.h"
+#include "Gift.h"
 
 
 void Dwarf::move(sf::Time& deltaTime)
@@ -90,4 +90,9 @@ void Dwarf::handleCollision(Mage& gameObj, Board& board)
 	changeDirection();
 
 	gameObj.handleCollision(*this, board);
+}
+
+void Dwarf::handleCollision(Gift& gameObj, Board& board)
+{
+	return;
 }

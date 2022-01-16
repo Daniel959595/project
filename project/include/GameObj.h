@@ -20,6 +20,7 @@ class Gate;
 class Ork;
 class Throne;
 class Dwarf;
+class Gift;
 
 
 class GameObj
@@ -44,6 +45,7 @@ public:
 	virtual void handleCollision(Key& gameObj, Board& board) {};
 	virtual void handleCollision(Dwarf& gameObj, Board& board) {};
 	virtual void handleCollision(Throne& gameObj, Board& board) {};
+	virtual void handleCollision(Gift& gameObj, Board& board) {};
 
 	float getLeftBounds();
 	float getWidth();
