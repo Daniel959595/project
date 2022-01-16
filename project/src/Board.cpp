@@ -1,15 +1,13 @@
 #include <iostream>
 #include <stdlib.h>
 #include <Time.h>
+#include <math.h>
 
 #include "Board.h"
 #include "Controller.h"
 #include "GiftAddTime.h"
 #include "GiftRedTime.h"
 #include "GiftRmvDwarf.h"
-
-const float OBJ_SIZE = 50.0f;
-const float INFO_AREA = 350.0f;
 
 
 Board::Board()
@@ -300,9 +298,11 @@ void Board::draw(sf::RenderWindow& window)
 void Board::drawInfo(sf::RenderWindow& window)
 {
     m_gameTime.draw(window);
-
-    std::string str(m_isKey ? "the thief\nhas a key." : "the thief\ndosen't have a key.");
-    m_infoText.setString(str);
+    std::string str0("level " + std::to_string(m_levelIndex) );
+    std::string str1(".\n\npress P to\nchange player.\n\n");
+    std::string str2(m_isKey ? "the thief\nhas a key." : 
+                               "the thief\ndosen't have a key.");
+    m_infoText.setString(str0 + str1 + str2);
     window.draw(m_infoText);
 
     drawCurrentPlayer(window);
@@ -419,10 +419,15 @@ void Board::startTime()
 
 void Board::setTimers(bool statement)
 {
-    m_gameTime.setIsTimer(statement);
+    m_gameTime.setIsTimer(statement, std::sqrt(std::sqrt(
+            (m_boardHeight/ OBJ_SIZE)* (m_boardWidth/OBJ_SIZE) )) * 60);
     m_moveables[0]->getDeltaTime(); //restart the deltaTime of the moveables. 
 }
 
+void Board::setLevelIndex(int curr_level)
+{
+    m_levelIndex = curr_level;
+}
 
 bool Board::handleTime()
 {

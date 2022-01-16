@@ -27,42 +27,52 @@
 #include "Gift.h"
 #include "Dwarf.h"
 
-
+const float OBJ_SIZE = 50.0f;
+const float INFO_AREA = 350.0f;
 
 class Board
 {
 public:
     Board();
+    ////////////draws//////////////
     void draw(sf::RenderWindow& window);
     void drawInfo(sf::RenderWindow& window);
     void drawCurrentPlayer(sf::RenderWindow& window);
+    ////////////inits//////////////
     void readData(std::ifstream& in);
     void loadVectors(char letter, float row, float col);
-    void setTeleportTwins();
+    void clearData();
+    void initFrame();
+    ////////////sets//////////////
     void setEmptySlots(std::vector<std::string>& matrix);
-    void handleGifts();
-    void addRandomGift(int timePassed);
-    void setIsGift();
     void setIsWin();
     void setIsKey(bool statement);
-    sf::Vector2f& getRandomPos();
+    void setPlayer();
+    void setTimers(bool statement);
+    void setLevelIndex(int curr_level);
+    void createKey(GameObj& obj);
+    ////////////Collisions//////////////
     void moveObjects();
     bool checkBoundsCollis(sf::Vector2f& direction, sf::Vector2f& ObjPos);
-    void setPlayer();
     bool handleCollisions();
     bool checkCollisions(Moveable& obj);
+    ////////////times//////////////
     bool handleTime();
     void startTime();
-    void setTimers(bool statement);
+    ////////////teleports//////////////
+    void setTeleportTwins();
     void resetTeleportCollision();
+    ////////////sounds//////////////
     void activateSounds(Sound sound);
-    void createKey(GameObj& obj);
-    void initFrame();
-    void clearData();
+    ///////////////gifts////////////////
+    void setIsGift();
+    void handleGifts();
+    void addRandomGift(int timePassed);
     void addTime();
     void redTime();
     void rmvDwarf();
-
+    sf::Vector2f& getRandomPos();
+    //////////////////////////////////
 private:
 
     Figures m_Figures;
@@ -83,6 +93,7 @@ private:
     float m_boardWidth = 0;
     float m_boardHeight = 0;
 
+    int m_levelIndex = 1;
     int m_playerIndex = 0;
 
     bool m_isGift = false;

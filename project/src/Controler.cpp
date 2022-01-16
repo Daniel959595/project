@@ -43,23 +43,15 @@ void Controller::menuAndRun()
 				m_window.close();
 				break;
 
-			//case sf::Event::MouseMoved:
-			//	location = m_window.mapPixelToCoords(
-			//		{ event.mouseMove.x, event.mouseMove.y });
-			//	m_board.handleColor(location);
-			//	m_board.handleMove(location);
-			//	break;
-
 			case sf::Event::MouseButtonReleased:
-				location = m_window.mapPixelToCoords(
-					{ event.mouseButton.x, event.mouseButton.y });
+				location = m_window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y });
+
 				if (handleButtons(location))
 				{
 					pressedButton = getPressedButton(location);
 					handleButtonClick(pressedButton);
 				}
 				break;
-
 			}
 		}
 	}
@@ -169,7 +161,6 @@ void Controller::showHelpWindow()
 void Controller::loadAndRun()
 {
 	m_menuMusic.pause();
-	
 	int index = 1; 
 	Situation situation;
 	m_board.startTime(); 
@@ -192,6 +183,7 @@ void Controller::loadAndRun()
 		case Situation::levelSucceed:
 			index++;
 			m_board.setIsWin();
+			m_board.setLevelIndex(index);
 			break;
 		case Situation::levelFailed:
 			break;

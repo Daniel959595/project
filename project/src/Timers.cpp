@@ -36,9 +36,6 @@ bool Timers::handleTimer()
 	int indexSec = static_cast<int>(m_limitTime - m_timer.getElapsedTime().asSeconds()) % 60;
 	m_timerText.setString("Time left:\n" + std::to_string(indexMin) + ":" + std::to_string(indexSec));
 
-	if (indexMin == 0 && indexSec <= 30)
-		m_timerText.setFillColor(sf::Color::Red);
-
 	if (indexMin <= 0 && indexSec <= 0)
 		return false;
 	return true;
@@ -47,8 +44,6 @@ bool Timers::handleTimer()
 void Timers::restartTimer()
 {
 	m_timer.restart();
-	//m_timerText.setFillColor(sf::Color::Black);
-	m_limitTime = 180;
 }
 
 int Timers::getTimePassed()
@@ -68,7 +63,7 @@ void Timers::startGameTime()
 	m_gameClock.restart();
 }
 
-void Timers::setIsTimer(bool statement, int limitTime)
+void Timers::setIsTimer(bool statement, float limitTime)
 {
 	m_isTimer = statement;
 	if (statement)
@@ -76,7 +71,6 @@ void Timers::setIsTimer(bool statement, int limitTime)
 		restartTimer();
 		m_limitTime = limitTime;
 	}
-
 }
 
 void Timers::addTime(int seconds)

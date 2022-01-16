@@ -14,7 +14,7 @@ public:
 	int getTimePassed();
 	void draw(sf::RenderWindow& window);
 	void startGameTime();
-	void setIsTimer(bool statemant, int limitTime = 180);
+	void setIsTimer(bool statemant, float limitTime);
 	void addTime(int seconds);
 	void redTime(int seconds);
 
